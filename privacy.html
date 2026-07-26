@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy — 1%</title>
+<meta name="description" content="What 1% stores on your device, the one piece of text that leaves it, who processes it, and what you can ask us to do with it.">
+<link rel="canonical" href="{{SITE_URL}}/privacy.html">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="1%">
+<meta property="og:locale" content="en">
+<meta property="og:url" content="{{SITE_URL}}/privacy.html">
+<meta property="og:title" content="Privacy — 1%">
+<meta property="og:description" content="What 1% stores on your device, the one piece of text that leaves it, who processes it, and what you can ask us to do with it.">
+<meta property="og:image" content="{{OG_IMAGE}}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Privacy — 1%">
+<meta name="twitter:description" content="What 1% stores on your device, the one piece of text that leaves it, who processes it, and what you can ask us to do with it.">
+<meta name="twitter:image" content="{{OG_IMAGE}}">
+
+<meta name="theme-color" content="#F5F5F4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0C0C0D" media="(prefers-color-scheme: dark)">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Ccircle%20cx='16'%20cy='16'%20r='9'%20fill='%23111111'/%3E%3C/svg%3E" media="(prefers-color-scheme: light)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Ccircle%20cx='16'%20cy='16'%20r='9'%20fill='%23F4F4F4'/%3E%3C/svg%3E" media="(prefers-color-scheme: dark)">
+
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="wordmark" href="index.html" aria-label="1%, home">1%</a>
+    <span class="header-note">iPhone</span>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap">
+
+    <div class="page-head">
+      <p class="eyebrow">Privacy</p>
+      <h1 class="display">Privacy policy</h1>
+      <p class="updated">Last updated {{LAST_UPDATED}}</p>
+    </div>
+
+    <div class="prose">
+
+      <section>
+        <h2>The short version</h2>
+        <p class="lede">Your goal and your progress live on your phone. When you ask 1% for a path, the text of your goal is sent to our backend and on to Google's Gemini API, which writes the steps. That is the only text of yours that ever leaves your device. There is no analytics SDK, no advertising, no tracking and no cookies.</p>
+      </section>
+
+      <section>
+        <h2>Who is responsible</h2>
+        <p>The controller for this data, in the sense of the GDPR, is:</p>
+        <div class="card">
+          <address>
+            {{COMPANY_NAME}}<br>
+            {{COMPANY_ADDRESS}}<br>
+            Germany
+          </address>
+          <p>Privacy contact: <a href="mailto:{{PRIVACY_EMAIL}}">{{PRIVACY_EMAIL}}</a></p>
+        </div>
+      </section>
+
+      <section>
+        <h2>What stays on your device</h2>
+        <p>The goal you wrote, the steps you have been given, which ones you marked done, your streak, your total number of steps and your level are stored in a local database inside the app on your iPhone.</p>
+        <p>That data is not uploaded so we can browse it, back it up or count it. We do not have a screen anywhere that shows us your goal text.</p>
+        <p>If you have iCloud device backup switched on, iOS may include the app's local data in your own encrypted Apple backup. That backup is yours and is handled under Apple's terms, not ours.</p>
+      </section>
+
+      <section>
+        <h2>What leaves your device, and when</h2>
+        <p>One thing does: <strong>the text of your goal, at the moment a path is generated.</strong></p>
+        <p>Here is the whole route. You type a goal. The app sends that text over an encrypted connection (HTTPS) to our backend, which runs as Supabase Edge Functions hosted in the EU. The backend passes the text to Google's Gemini API, which writes the steps. The steps come back the same way and are stored on your device.</p>
+        <p>The processors involved:</p>
+        <ul>
+          <li><strong>Supabase</strong> — our backend and database. Edge Functions and project data are hosted in the EU.</li>
+          <li><strong>Google</strong> — the Gemini API, which generates the step text.</li>
+        </ul>
+        <p>Nothing else you write goes anywhere. We do not send your completions, your streak, your level or your usage patterns to either of them.</p>
+        <p>Please do not put names, addresses or other sensitive personal details into your goal text. It does not make the steps better, and it is the one field that leaves the phone.</p>
+      </section>
+
+      <section>
+        <h2>The steps are written by AI</h2>
+        <p>Every step you see in 1% is generated by a large language model. It is not written by a coach, an editor or any other person, and it is not reviewed by a person before you see it.</p>
+        <p>We state this here, and in the app, because Article 50 of the EU AI Act requires that you know when you are interacting with AI-generated content. A language model can be wrong, repetitive or badly judged. Use your own judgement about whether a given step is right for you, and skip anything that is not.</p>
+        <p>1% is a general self-improvement app and is not a substitute for professional advice or care.</p>
+      </section>
+
+      <section>
+        <h2>Accounts</h2>
+        <p>There are two kinds of account, and neither has a password.</p>
+        <h3>Anonymous account</h3>
+        <p>On first launch the app creates an anonymous account for you automatically, so your subscription and your generated paths can be attached to something. It holds a random identifier and nothing about who you are.</p>
+        <h3>Sign in with Apple</h3>
+        <p>If you choose to sign in, Apple gives the app an opaque user identifier, and — only if you agree to share it — an email address. That address may be one of Apple's private relay addresses, which is fine; we never need to know your real one. We receive no name, no photo, no profile and no password.</p>
+        <p>We use the identifier to recognise the same account on a new device. We use an email address, if we have one, to reply to you if you write to support.</p>
+      </section>
+
+      <section>
+        <h2>Subscriptions and payment</h2>
+        <p>Subscriptions are sold by Apple through the App Store and managed with RevenueCat, which keeps track of whether a given account has an active subscription.</p>
+        <p>The app never sees your card details, your name or your billing address. Apple handles the payment and Apple's own privacy policy covers it. What RevenueCat holds is an anonymous app user identifier, the transaction identifiers Apple issues and the status of your subscription.</p>
+      </section>
+
+      <section>
+        <h2>What we do not do</h2>
+        <ul>
+          <li>No analytics SDK. We do not measure screens, sessions or funnels.</li>
+          <li>No advertising and no ad identifiers. We do not ask for tracking permission because we have nothing to track you with.</li>
+          <li>No third-party cookies. No first-party cookies either, in the app or on this site.</li>
+          <li>No fingerprinting, no device graph, no cross-app or cross-site profiles.</li>
+          <li>No selling or sharing of personal data. There is nothing to sell.</li>
+        </ul>
+        <p>If crash reporting is ever added, it will be stated here first, and it will carry technical crash information only — never your goal text, your steps or anything else you wrote.</p>
+      </section>
+
+      <section>
+        <h2>Legal grounds</h2>
+        <dl>
+          <dt>Generating your steps</dt>
+          <dd>Article 6(1)(b) GDPR — performing the contract you entered into by using the app. Without sending the goal text there is no path to give you.</dd>
+
+          <dt>Account and subscription records</dt>
+          <dd>Article 6(1)(b) GDPR — running your account and your subscription.</dd>
+
+          <dt>Sign in with Apple, if you use it</dt>
+          <dd>Article 6(1)(b) GDPR, and Article 6(1)(a) for an email address you choose to share.</dd>
+
+          <dt>Keeping the service working and stopping abuse</dt>
+          <dd>Article 6(1)(f) GDPR — our legitimate interest in a backend that stays up and is not being drained by automated requests.</dd>
+        </dl>
+      </section>
+
+      <section>
+        <h2>Where the data is</h2>
+        <p>Our backend and database run on Supabase infrastructure in the EU.</p>
+        <p>Google's Gemini API may process your goal text outside the EU, including in the United States. That transfer is covered by the European Commission's Standard Contractual Clauses together with Google's own transfer safeguards. If you would rather your goal text stayed inside the EU only, the honest answer today is that generating a path is not possible on those terms, and you should not use the app.</p>
+      </section>
+
+      <section>
+        <h2>How long things are kept</h2>
+        <ul>
+          <li><strong>On your device</strong> — until you delete the app or clear its data. Deleting the app from your iPhone removes the local database with it.</li>
+          <li><strong>Account records</strong> — until you delete your account. Deletion removes the account row and everything attached to it.</li>
+          <li><strong>Generated paths</strong> — a generated path may be kept on our side as a cache so the same request does not have to be regenerated. After account deletion, anything retained is held without any link to a person or an account.</li>
+          <li><strong>Support email</strong> — kept as long as needed to deal with your message, then removed.</li>
+          <li><strong>Subscription records</strong> — Apple and RevenueCat keep transaction records for as long as tax and accounting rules require. That part is not ours to erase.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Your rights</h2>
+        <p>Under the GDPR you can ask us for:</p>
+        <ul>
+          <li><strong>Access</strong> — a copy of what we hold about you.</li>
+          <li><strong>Correction</strong> — a fix for anything wrong.</li>
+          <li><strong>Deletion</strong> — removal of your account and its records.</li>
+          <li><strong>Portability</strong> — your data in a machine-readable file.</li>
+          <li><strong>Restriction and objection</strong> — including objecting to anything we do on the grounds of legitimate interest.</li>
+          <li><strong>Withdrawal of consent</strong> — where you gave it, with no effect on what happened before.</li>
+        </ul>
+        <p>The fastest route for deletion is inside the app: Settings, then Account, then Delete Account. It happens immediately. <a href="delete-account.html">More about deletion</a>.</p>
+        <p>For anything else, write to <a href="mailto:{{PRIVACY_EMAIL}}">{{PRIVACY_EMAIL}}</a>. We reply within {{SUPPORT_RESPONSE_TIME}} and answer inside one month, as the GDPR requires.</p>
+        <p>You also have the right to complain to a data protection supervisory authority. Ours is {{SUPERVISORY_AUTHORITY}}. You may also go to the authority where you live.</p>
+      </section>
+
+      <section>
+        <h2>Children</h2>
+        <p>1% is not directed at children. Do not use it if you are under 13, or under 16 in the European Union. We do not knowingly keep data from anyone in that range; if you believe a child has an account, write to <a href="mailto:{{PRIVACY_EMAIL}}">{{PRIVACY_EMAIL}}</a> and we will remove it.</p>
+      </section>
+
+      <section>
+        <h2>This website</h2>
+        <p>This site is static HTML and CSS. It sets no cookies, loads no fonts, embeds no scripts, and makes no requests to any other origin. Your visit is not counted anywhere. Standard access logs may be kept by whoever hosts the files.</p>
+      </section>
+
+      <section>
+        <h2>Changes</h2>
+        <p>If this policy changes in a way that matters, the date at the top changes and the app tells you the next time you open it. Small wording fixes will not get an announcement.</p>
+      </section>
+
+      <section>
+        <h2>Contact</h2>
+        <p>Privacy questions: <a href="mailto:{{PRIVACY_EMAIL}}">{{PRIVACY_EMAIL}}</a><br>
+        Everything else: <a href="mailto:{{SUPPORT_EMAIL}}">{{SUPPORT_EMAIL}}</a></p>
+        <p>Postal address and responsible person are on the <a href="imprint.html">imprint</a>.</p>
+      </section>
+
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav aria-label="Legal and support">
+      <ul class="footer-nav">
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="imprint.html">Imprint</a></li>
+      </ul>
+    </nav>
+    <p class="footer-note">1% is a general self-improvement app and is not a substitute for professional advice or care.</p>
+    <p class="footer-note">© {{YEAR}} {{COMPANY_NAME}}. 1% is an iPhone app. Steps are written by an AI language model.</p>
+  </div>
+</footer>
+
+</body>
+</html>

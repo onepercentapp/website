@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Delete your account — 1%</title>
+<meta name="description" content="How to delete your 1% account and data: the in-app route, exactly what is removed, and the email fallback if you cannot open the app.">
+<link rel="canonical" href="{{SITE_URL}}/delete-account.html">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="1%">
+<meta property="og:locale" content="en">
+<meta property="og:url" content="{{SITE_URL}}/delete-account.html">
+<meta property="og:title" content="Delete your account — 1%">
+<meta property="og:description" content="How to delete your 1% account and data: the in-app route, exactly what is removed, and the email fallback if you cannot open the app.">
+<meta property="og:image" content="{{OG_IMAGE}}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Delete your account — 1%">
+<meta name="twitter:description" content="How to delete your 1% account and data: the in-app route, exactly what is removed, and the email fallback if you cannot open the app.">
+<meta name="twitter:image" content="{{OG_IMAGE}}">
+
+<meta name="theme-color" content="#F5F5F4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0C0C0D" media="(prefers-color-scheme: dark)">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Ccircle%20cx='16'%20cy='16'%20r='9'%20fill='%23111111'/%3E%3C/svg%3E" media="(prefers-color-scheme: light)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Ccircle%20cx='16'%20cy='16'%20r='9'%20fill='%23F4F4F4'/%3E%3C/svg%3E" media="(prefers-color-scheme: dark)">
+
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="wordmark" href="index.html" aria-label="1%, home">1%</a>
+    <span class="header-note">iPhone</span>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap">
+
+    <div class="page-head">
+      <p class="eyebrow">Account</p>
+      <h1 class="display">Delete your account</h1>
+      <p class="updated">Last updated {{LAST_UPDATED}}</p>
+    </div>
+
+    <div class="prose">
+
+      <section>
+        <p class="lede">You can delete your 1% account and its data from inside the app, in three taps, without asking anyone. This page describes the route so it can be found from outside the app as well.</p>
+      </section>
+
+      <section>
+        <h2>In the app</h2>
+        <div class="card">
+          <p><strong>Settings → Account → Delete Account</strong></p>
+          <p class="caption">Open 1%, go to Settings, tap Account, tap Delete Account, and confirm.</p>
+        </div>
+        <p>Deletion runs straight away. There is no waiting period, no cooling-off window and no reactivation link. Once it is done it cannot be undone, by you or by us.</p>
+      </section>
+
+      <section>
+        <h2>What is deleted</h2>
+        <ul>
+          <li>Your account record, and the identifier behind it.</li>
+          <li>The opaque Sign in with Apple identifier, if you used it, and any email address you shared through it.</li>
+          <li>Your goal and your generated path as they exist on our side.</li>
+          <li>The link between your subscription record and you.</li>
+          <li>The local database on your device — your goal, your steps, your streak, your total and your level — when you remove the app.</li>
+        </ul>
+        <p>After deletion we hold nothing that points back to you. A generated path may stay in our cache so identical requests do not have to be regenerated, but with no account, no identifier and no way to connect it to a person.</p>
+      </section>
+
+      <section>
+        <h2>What deletion does not do</h2>
+        <ul>
+          <li><strong>It does not cancel your subscription.</strong> Apple bills that, and it keeps renewing until you cancel it in the App Store. Cancel first, then delete. <a href="support.html">How to cancel</a>.</li>
+          <li><strong>It does not refund anything.</strong> Refunds are Apple's, at <a href="https://reportaproblem.apple.com" rel="noopener">reportaproblem.apple.com</a>.</li>
+          <li><strong>It does not erase Apple's or RevenueCat's transaction records.</strong> Those are kept for as long as tax and accounting rules require, and are not ours to remove.</li>
+          <li><strong>It does not remove an iCloud device backup you made yourself.</strong> That backup is yours, in your Apple Account.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Order we suggest</h2>
+        <ul>
+          <li>Cancel the subscription in Settings → your name → Subscriptions → 1% → Cancel Subscription.</li>
+          <li>Delete the account in the app: Settings → Account → Delete Account.</li>
+          <li>Delete the app from your iPhone, which removes the local database with it.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>If you cannot open the app</h2>
+        <p>Write to <a href="mailto:{{SUPPORT_EMAIL}}">{{SUPPORT_EMAIL}}</a> from the email address linked to your account, with the subject <strong>Delete my account</strong>. We reply within {{SUPPORT_RESPONSE_TIME}} and delete within 30 days at the outside, usually the same day.</p>
+        <p>If you signed in with Apple using a private relay address, write from that relay address — it reaches us and it is how we match the request to the right account. If you used an anonymous account and cannot open the app, there is nothing tying it to you, and there is no way for us to identify which record is yours.</p>
+      </section>
+
+      <section>
+        <h2>Related</h2>
+        <p><a href="privacy.html">Privacy policy</a> — what is stored and where.<br>
+        <a href="support.html">Support</a> — everything else.</p>
+      </section>
+
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav aria-label="Legal and support">
+      <ul class="footer-nav">
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="imprint.html">Imprint</a></li>
+      </ul>
+    </nav>
+    <p class="footer-note">1% is a general self-improvement app and is not a substitute for professional advice or care.</p>
+    <p class="footer-note">© {{YEAR}} {{COMPANY_NAME}}. 1% is an iPhone app. Steps are written by an AI language model.</p>
+  </div>
+</footer>
+
+</body>
+</html>

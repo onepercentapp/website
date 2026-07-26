@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1% — one goal, one small step a day</title>
+<meta name="description" content="1% is an iOS app that gives you one small step toward your goal each day. Five to twenty minutes. No course, no curriculum, no finish line.">
+<link rel="canonical" href="{{SITE_URL}}/">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="1%">
+<meta property="og:locale" content="en">
+<meta property="og:url" content="{{SITE_URL}}/">
+<meta property="og:title" content="1% — one goal, one small step a day">
+<meta property="og:description" content="1% is an iOS app that gives you one small step toward your goal each day. Five to twenty minutes. No course, no curriculum, no finish line.">
+<meta property="og:image" content="{{OG_IMAGE}}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="1% — one goal, one small step a day">
+<meta name="twitter:description" content="1% is an iOS app that gives you one small step toward your goal each day. Five to twenty minutes. No course, no curriculum, no finish line.">
+<meta name="twitter:image" content="{{OG_IMAGE}}">
+
+<meta name="theme-color" content="#F5F5F4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0C0C0D" media="(prefers-color-scheme: dark)">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Ccircle%20cx='16'%20cy='16'%20r='9'%20fill='%23111111'/%3E%3C/svg%3E" media="(prefers-color-scheme: light)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Ccircle%20cx='16'%20cy='16'%20r='9'%20fill='%23F4F4F4'/%3E%3C/svg%3E" media="(prefers-color-scheme: dark)">
+
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="wordmark" href="index.html" aria-label="1%, home">1%</a>
+    <span class="header-note">iPhone</span>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero wrap">
+
+    <!-- The one graphic on this site: 35 days. 34 done, today still open. -->
+    <div class="hero-grid-holder">
+      <div class="dots" role="img" aria-label="A grid of thirty-five dots, one for each day. Thirty-four are filled in for days already done. The last one is an open outline: today, not done yet.">
+        <span class="dot" style="--i:0"></span><span class="dot" style="--i:1"></span><span class="dot" style="--i:2"></span><span class="dot" style="--i:3"></span><span class="dot" style="--i:4"></span><span class="dot" style="--i:5"></span><span class="dot" style="--i:6"></span>
+        <span class="dot" style="--i:7"></span><span class="dot" style="--i:8"></span><span class="dot" style="--i:9"></span><span class="dot" style="--i:10"></span><span class="dot" style="--i:11"></span><span class="dot" style="--i:12"></span><span class="dot" style="--i:13"></span>
+        <span class="dot" style="--i:14"></span><span class="dot" style="--i:15"></span><span class="dot" style="--i:16"></span><span class="dot" style="--i:17"></span><span class="dot" style="--i:18"></span><span class="dot" style="--i:19"></span><span class="dot" style="--i:20"></span>
+        <span class="dot" style="--i:21"></span><span class="dot" style="--i:22"></span><span class="dot" style="--i:23"></span><span class="dot" style="--i:24"></span><span class="dot" style="--i:25"></span><span class="dot" style="--i:26"></span><span class="dot" style="--i:27"></span>
+        <span class="dot" style="--i:28"></span><span class="dot" style="--i:29"></span><span class="dot" style="--i:30"></span><span class="dot" style="--i:31"></span><span class="dot" style="--i:32"></span><span class="dot" style="--i:33"></span><span class="dot dot--open" style="--i:34"></span>
+      </div>
+    </div>
+
+    <p class="eyebrow">One goal at a time</p>
+    <h1 class="hero-display">One goal.<br>One small step a day.</h1>
+    <p class="hero-sub body">Tell 1% what you want to get better at. Each day it gives you one step toward it — five to twenty minutes, concrete enough to start right away.</p>
+
+    <div class="hero-cta">
+      <!--
+        App Store badge slot.
+
+        The app is not on the App Store yet, so this renders as a plain
+        "Coming to the App Store" pill instead of a dead link.
+
+        When {{APP_STORE_URL}} is real, replace the <span> below with the
+        official Apple badge, downloaded from Apple and served from this
+        origin (never hotlinked):
+
+        <a href="{{APP_STORE_URL}}" class="badge-link">
+          <img src="app-store-badge.svg" width="156" height="52"
+               alt="Download 1% on the App Store">
+        </a>
+
+        Master asset is 119.664 x 40 pt; 156 x 52 CSS px is the standard
+        render size, which is what .pill is sized to, so the swap causes no
+        layout shift. Minimum size, clear space and colour rules are in
+        Apple's "Marketing Resources and Identity Guidelines".
+      -->
+      <span class="pill">Coming to the App Store</span>
+      <p class="cta-note">iPhone, iOS. One goal, one step a day.</p>
+    </div>
+
+    <!--
+      Optional screenshot strip. Left out of the shipped page on purpose —
+      the dot grid is the only graphic here. If you want screenshots, drop
+      three same-origin PNGs in and uncomment:
+
+      <ul class="shots">
+        <li><img src="{{SCREENSHOT_1}}" width="390" height="844" alt="The day's step, on its own screen."></li>
+        <li><img src="{{SCREENSHOT_2}}" width="390" height="844" alt="Writing a goal in your own words."></li>
+        <li><img src="{{SCREENSHOT_3}}" width="390" height="844" alt="A streak, a total number of steps, and a level."></li>
+      </ul>
+    -->
+
+  </section>
+
+  <div class="wrap">
+
+    <section class="section">
+      <p class="eyebrow">How it works</p>
+      <h2 class="title">One goal, one step</h2>
+      <p>You write down a single goal, in your own words. Every day the app hands you one step toward it. Five to twenty minutes, specific enough that you know exactly what to do and can start now.</p>
+      <p>When the step is done, you are done for the day. Tomorrow there is another one.</p>
+    </section>
+
+    <section class="section">
+      <p class="eyebrow">The steps</p>
+      <h2 class="title">Written for your goal, not picked from a list</h2>
+      <p>Steps are generated from the goal you wrote. If your goal is to feel more at ease around people, you get steps about people. If it is to draw, you get steps about drawing. They get harder as you keep going, at the pace you are already keeping.</p>
+      <p class="caption">The steps are written by an AI language model from the text of your goal. You are reading text generated by a machine, not by a coach.</p>
+      <p><span class="chip">AI-generated steps</span></p>
+    </section>
+
+    <section class="section">
+      <p class="eyebrow">The shape of it</p>
+      <h2 class="title">No finish line</h2>
+      <p>There is no Day 12 of 30. No course, no curriculum, no bar filling toward an end. You see a streak, a count of steps done, and a level that keeps going up.</p>
+      <p>The app runs as long as you run it. If you stop, it waits. If you miss a day, the streak resets and the total does not.</p>
+    </section>
+
+    <section class="section">
+      <p class="eyebrow">Your data</p>
+      <h2 class="title">Your goal stays on your phone</h2>
+      <p>Your goal and your progress are stored in a database on your device. They are not uploaded for browsing, backup or analytics.</p>
+      <p>One thing does leave: when a path is generated, the text of your goal is sent to our backend in the EU and on to Google's Gemini API, which writes the steps. That is the only text of yours that travels. No analytics SDK, no advertising, no tracking, no cookies.</p>
+      <p><a href="privacy.html">Read the privacy policy</a></p>
+    </section>
+
+    <section class="section">
+      <p class="eyebrow">Questions</p>
+      <h2 class="title">Common questions</h2>
+
+      <div class="faq">
+
+        <details>
+          <summary>How long does a step take?</summary>
+          <p>Five to twenty minutes. Long enough to count, short enough that a busy day is not an excuse.</p>
+        </details>
+
+        <details>
+          <summary>What happens if I miss a day?</summary>
+          <p>The streak goes back to zero. The total number of steps you have done stays where it is, and so does your level. The next day there is a new step, same as always.</p>
+        </details>
+
+        <details>
+          <summary>Who writes the steps?</summary>
+          <p>An AI language model, using the goal you typed. It runs on Google's Gemini API through our own backend. No human reads your goal to write your steps.</p>
+        </details>
+
+        <details>
+          <summary>Do the steps repeat?</summary>
+          <p>They build. Each one follows from the goal and from what you have already done, and they get harder as you go. There is no fixed list underneath.</p>
+        </details>
+
+        <details>
+          <summary>Do I need an account?</summary>
+          <p>Not one you have to make. The app creates an anonymous account for you on first launch. You can sign in with Apple instead if you want your progress to survive a new phone.</p>
+        </details>
+
+        <details>
+          <summary>What does it cost?</summary>
+          <p>1% is a subscription: {{PRICE_MONTHLY}} per month or {{PRICE_YEARLY}} per year, after a {{TRIAL_LENGTH}} free trial. Billing goes through Apple and you can cancel any time in the App Store.</p>
+        </details>
+
+        <details>
+          <summary>Can I use it without a connection?</summary>
+          <p>A step that has already been generated is on your device and opens offline. Writing a new goal needs a connection, because that is when the steps are generated.</p>
+        </details>
+
+        <details>
+          <summary>How do I delete everything?</summary>
+          <p>In the app: Settings, then Account, then Delete Account. It is immediate and cannot be undone. <a href="delete-account.html">The full description is here</a>.</p>
+        </details>
+
+      </div>
+    </section>
+
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav aria-label="Legal and support">
+      <ul class="footer-nav">
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="imprint.html">Imprint</a></li>
+      </ul>
+    </nav>
+    <p class="footer-note">1% is a general self-improvement app and is not a substitute for professional advice or care.</p>
+    <p class="footer-note">© {{YEAR}} {{COMPANY_NAME}}. 1% is an iPhone app. Steps are written by an AI language model.</p>
+  </div>
+</footer>
+
+</body>
+</html>
