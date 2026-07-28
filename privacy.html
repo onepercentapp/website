@@ -99,7 +99,7 @@
         <ul>
           <li><strong>Supabase</strong> — our backend, database and sign-in. Edge Functions and project data are hosted in the EU.</li>
           <li><strong>Google</strong> — the Gemini API, which generates the step text.</li>
-          <li><strong>Resend</strong> — delivers the confirmation and password-reset emails, if you sign in with an email address. It handles your address and the message; it never sees your goal or your progress.</li>
+          <li><strong>Resend</strong> — delivers the sign-in codes, if you use an email address rather than Apple. It handles your address and the message; it never sees your goal or your progress.</li>
         </ul>
         <p>We do not send your usage patterns anywhere. There is no analytics pipeline behind any of this.</p>
         <p>Please do not put names, addresses or other sensitive personal details into your goal text. It does not make the steps better, and it is the field that goes furthest — through our backend to Google.</p>
@@ -119,9 +119,9 @@
         <h3>Sign in with Apple</h3>
         <p>Apple gives the app an opaque user identifier, and — only if you agree to share it — an email address. That address may be one of Apple's private relay addresses, which is fine; we never need to know your real one. Apple also passes your name once, on the very first sign-in; the app keeps the first name on your device as a suggestion for the name screen and nothing more. We receive no photo, no profile and no password.</p>
 
-        <h3>Email and password</h3>
-        <p>If you would rather not use Apple, you can sign up with an email address and a password. We store the address; the password is handled by Supabase Auth, which keeps a salted hash of it and never the password itself.</p>
-        <p>Confirming the address and resetting a password work with a numeric code sent to your inbox. Those emails are delivered by Resend. We do not send you anything else — no newsletter, no product mail, no re-engagement nudges.</p>
+        <h3>Email and a one-time code</h3>
+        <p>If you would rather not use Apple, you can use an email address instead. There is no password: you type the address, we send a six-digit code to it, and entering that code signs you in. We store the address and nothing else about you.</p>
+        <p>The same thing happens whether or not the address already has an account, so this form cannot be used to find out which addresses are registered. The emails are delivered by Resend. We send nothing else — no newsletter, no product mail, no re-engagement nudges.</p>
 
         <h3>What the identifier is for</h3>
         <p>We use it to recognise the same account on a new device, to attach your backup to you, and to keep your subscription status with the right account. We use an email address, if we have one, to reply to you if you write to support.</p>
@@ -160,8 +160,8 @@
           <dt>Sign in with Apple, if you use it</dt>
           <dd>Article 6(1)(b) GDPR, and Article 6(1)(a) for an email address you choose to share.</dd>
 
-          <dt>Confirmation and password-reset emails</dt>
-          <dd>Article 6(1)(b) GDPR — an email account cannot be run without them.</dd>
+          <dt>Sign-in codes by email</dt>
+          <dd>Article 6(1)(b) GDPR — with no password there is no other way to prove the address is yours.</dd>
 
           <dt>Keeping the service working and stopping abuse</dt>
           <dd>Article 6(1)(f) GDPR — our legitimate interest in a backend that stays up and is not being drained by automated requests.</dd>
