@@ -5,21 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Delete your account — 1%</title>
 <meta name="description" content="How to delete your 1% account and data: the in-app route, exactly what is removed, and the email fallback if you cannot open the app.">
-<link rel="canonical" href="{{SITE_URL}}/delete-account.html">
+<link rel="canonical" href="https://onepercentapp.xyz/delete-account.html">
 <meta name="robots" content="index, follow">
 
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="1%">
 <meta property="og:locale" content="en">
-<meta property="og:url" content="{{SITE_URL}}/delete-account.html">
+<meta property="og:url" content="https://onepercentapp.xyz/delete-account.html">
 <meta property="og:title" content="Delete your account — 1%">
 <meta property="og:description" content="How to delete your 1% account and data: the in-app route, exactly what is removed, and the email fallback if you cannot open the app.">
-<meta property="og:image" content="{{OG_IMAGE}}">
 
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Delete your account — 1%">
 <meta name="twitter:description" content="How to delete your 1% account and data: the in-app route, exactly what is removed, and the email fallback if you cannot open the app.">
-<meta name="twitter:image" content="{{OG_IMAGE}}">
 
 <meta name="theme-color" content="#F5F5F4" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0C0C0D" media="(prefers-color-scheme: dark)">
@@ -46,7 +44,7 @@
     <div class="page-head">
       <p class="eyebrow">Account</p>
       <h1 class="display">Delete your account</h1>
-      <p class="updated">Last updated {{LAST_UPDATED}}</p>
+      <p class="updated">Last updated 2026-07-28</p>
     </div>
 
     <div class="prose">
@@ -68,12 +66,12 @@
         <h2>What is deleted</h2>
         <ul>
           <li>Your account record, and the identifier behind it.</li>
-          <li>The opaque Sign in with Apple identifier, if you used it, and any email address you shared through it.</li>
-          <li>Your goal and your generated path as they exist on our side.</li>
+          <li>The opaque Sign in with Apple identifier, if you used it, and any email address you shared through it. Or your email address and the stored hash of your password, if you signed up that way.</li>
+          <li><strong>Your backup</strong> — the copy of your goal, your day-by-day steps, your completions, your swaps and your settings that the account was keeping for you.</li>
           <li>The link between your subscription record and you.</li>
-          <li>The local database on your device — your goal, your steps, your streak, your total and your level — when you remove the app.</li>
         </ul>
         <p>After deletion we hold nothing that points back to you. A generated path may stay in our cache so identical requests do not have to be regenerated, but with no account, no identifier and no way to connect it to a person.</p>
+        <p><strong>The copy on your phone is not touched.</strong> Deleting the account removes the server copy; it does not wipe your device. The local database goes when you delete the app, which is the last step below.</p>
       </section>
 
       <section>
@@ -97,8 +95,8 @@
 
       <section>
         <h2>If you cannot open the app</h2>
-        <p>Write to <a href="mailto:{{SUPPORT_EMAIL}}">{{SUPPORT_EMAIL}}</a> from the email address linked to your account, with the subject <strong>Delete my account</strong>. We reply within {{SUPPORT_RESPONSE_TIME}} and delete within 30 days at the outside, usually the same day.</p>
-        <p>If you signed in with Apple using a private relay address, write from that relay address — it reaches us and it is how we match the request to the right account. If you used an anonymous account and cannot open the app, there is nothing tying it to you, and there is no way for us to identify which record is yours.</p>
+        <p>Write to <a href="mailto:support@onepercentapp.xyz">support@onepercentapp.xyz</a> from the email address linked to your account, with the subject <strong>Delete my account</strong>. We reply within two business days and delete within 30 days at the outside, usually the same day.</p>
+        <p>If you signed in with Apple using a private relay address, write from that relay address — it reaches us and it is how we match the request to the right account. If you never created an account, there is nothing on our side to delete: your goal and your progress were only ever on the phone, and removing the app removes them.</p>
       </section>
 
       <section>
@@ -123,7 +121,7 @@
       </ul>
     </nav>
     <p class="footer-note">1% is a general self-improvement app and is not a substitute for professional advice or care.</p>
-    <p class="footer-note">© {{YEAR}} {{COMPANY_NAME}}. 1% is an iPhone app. Steps are written by an AI language model.</p>
+    <p class="footer-note">© 2026 Luis Krüsselmann. 1% is an iPhone app. Steps are written by an AI language model.</p>
   </div>
 </footer>
 

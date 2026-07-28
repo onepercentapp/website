@@ -60,7 +60,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --canvas: #0C0C0D;
+    --canvas: #080808;
     --surface: #1a1a1a;
     --surface-2: #2c2c2c;
     --ink: #F4F4F4;
@@ -375,6 +375,38 @@ main {
 
 .hero-cta {
   margin-top: 36px;
+}
+
+/* --------------------------------------------------------------------------
+   6b. Screenshots
+   -------------------------------------------------------------------------- */
+
+/* Three App Store shots, side by side at every width.
+
+   Fixed at three columns rather than reflowing: these are tall images, roughly
+   1:2.2, so a single column on a phone would be about 2000px of screenshot
+   between the hero and the first paragraph — the page would read as a gallery
+   with some text after it. Three abreast stays a glance at the app, which is
+   what it is for. Two columns is not an option either: three items in a
+   two-column grid always leaves one orphan on its own row.
+
+   The images already carry their own dark background, so they get no border,
+   no shadow and no radius — anything drawn around them would only outline a
+   rectangle that is already there. */
+.shots {
+  list-style: none;
+  margin: 56px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.shots img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 /* --------------------------------------------------------------------------

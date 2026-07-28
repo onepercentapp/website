@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>{{SITE_URL}}/</loc>
-    <lastmod>{{LAST_UPDATED}}</lastmod>
+    <loc>https://onepercentapp.xyz/</loc>
+    <lastmod>2026-07-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>{{SITE_URL}}/privacy.html</loc>
-    <lastmod>{{LAST_UPDATED}}</lastmod>
+    <loc>https://onepercentapp.xyz/privacy.html</loc>
+    <lastmod>2026-07-28</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>{{SITE_URL}}/terms.html</loc>
-    <lastmod>{{LAST_UPDATED}}</lastmod>
+    <loc>https://onepercentapp.xyz/terms.html</loc>
+    <lastmod>2026-07-28</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>{{SITE_URL}}/support.html</loc>
-    <lastmod>{{LAST_UPDATED}}</lastmod>
+    <loc>https://onepercentapp.xyz/support.html</loc>
+    <lastmod>2026-07-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>{{SITE_URL}}/delete-account.html</loc>
-    <lastmod>{{LAST_UPDATED}}</lastmod>
+    <loc>https://onepercentapp.xyz/delete-account.html</loc>
+    <lastmod>2026-07-28</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>{{SITE_URL}}/imprint.html</loc>
-    <lastmod>{{LAST_UPDATED}}</lastmod>
+    <loc>https://onepercentapp.xyz/imprint.html</loc>
+    <lastmod>2026-07-28</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

@@ -5,21 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>1% — Improve daily</title>
 <meta name="description" content="1% is an iOS app that gives you one small step toward your goal each day. Five to twenty minutes. No course, no curriculum, no finish line.">
-<link rel="canonical" href="{{SITE_URL}}/">
+<link rel="canonical" href="https://onepercentapp.xyz/">
 <meta name="robots" content="index, follow">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="1%">
 <meta property="og:locale" content="en">
-<meta property="og:url" content="{{SITE_URL}}/">
+<meta property="og:url" content="https://onepercentapp.xyz/">
 <meta property="og:title" content="1% — one goal, one small step a day">
 <meta property="og:description" content="1% is an iOS app that gives you one small step towards a goal each day. Five to twenty minutes. No course, no curriculum, no finish line.">
-<meta property="og:image" content="{{OG_IMAGE}}">
 
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="1% — one goal, one small step a day">
 <meta name="twitter:description" content="1% is an iOS app that gives you one small step toward your goal each day. Five to twenty minutes. No course, no curriculum, no finish line.">
-<meta name="twitter:image" content="{{OG_IMAGE}}">
 
 <meta name="theme-color" content="#F5F5F4" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0C0C0D" media="(prefers-color-scheme: dark)">
@@ -56,7 +54,7 @@
     </div>
 
     <p class="eyebrow">a new approach to habits</p>
-    <h1 class="hero-display">One goal.<br>One small step a day.</h1>
+    <h1 class="hero-display">One goal.<br>One small step a day.<br></h1>
     <p class="hero-sub body">Tell 1% what you want to get better at. Each day it gives you one step toward it — five to twenty minutes, concrete enough to start right away.</p>
 
     <div class="hero-cta">
@@ -84,17 +82,25 @@
       <p class="cta-note">iPhone, iOS.</p>
     </div>
 
-    <!--
-      Optional screenshot strip. Left out of the shipped page on purpose —
-      the dot grid is the only graphic here. If you want screenshots, drop
-      three same-origin PNGs in and uncomment:
-
-      <ul class="shots">
-        <li><img src="{{SCREENSHOT_1}}" width="390" height="844" alt="The day's step, on its own screen."></li>
-        <li><img src="{{SCREENSHOT_2}}" width="390" height="844" alt="Writing a goal in your own words."></li>
-        <li><img src="{{SCREENSHOT_3}}" width="390" height="844" alt="A streak, a total number of steps, and a level."></li>
-      </ul>
-    -->
+    <!-- Three App Store shots, served from this origin like everything else.
+         Intrinsic size is the real pixel size of the files, so the browser
+         reserves the right space before they load and nothing jumps. The first
+         is eager because it is above the fold on a phone; the other two are
+         lazy. -->
+    <ul class="shots">
+      <li>
+        <img src="screenshot-1.png" width="1320" height="2868" fetchpriority="high"
+             alt="The Today screen: the goal &quot;Feel at ease around people&quot; above one step for the day — organise a fifteen-minute coffee break or walk with two colleagues — marked Level 4 and 20 minutes, with a row of seven dots for the week and a streak of 43 days.">
+      </li>
+      <li>
+        <img src="screenshot-2.png" width="1320" height="2868" loading="lazy"
+             alt="The Progress screen: Level 13, called Quiet Streak, with 30 of 82 XP. A chart compares steps actually done against one a day. Below it: 43 day streak, 43 best streak, 43 steps done, step tier 4.">
+      </li>
+      <li>
+        <img src="screenshot-3.png" width="1320" height="2868" loading="lazy"
+             alt="A new level screen: the number 24 inside a ring, the label New level, the name Even Keel, and the line &quot;Come back tomorrow and keep it going.&quot;">
+      </li>
+    </ul>
 
   </section>
 
@@ -150,7 +156,7 @@
 
         <details>
           <summary>What does it cost?</summary>
-          <p>1% is a subscription: {{PRICE_MONTHLY}} per month or {{PRICE_YEARLY}} per year, after a {{TRIAL_LENGTH}} free trial. Billing goes through Apple and you can cancel any time in the App Store.</p>
+          <p>1% is a subscription: €4.99 per month or €29.99 per year, after a 3-day free trial. Billing goes through Apple and you can cancel any time in the App Store.</p>
         </details>
 
         <details>
@@ -181,7 +187,7 @@
       </ul>
     </nav>
     <p class="footer-note">1% is a general self-improvement app and is not a substitute for professional advice or care.</p>
-    <p class="footer-note">© 2026 – 1% is an iPhone app. Steps are written by an AI language model.</p>
+    <p class="footer-note">© 2026 Luis Krüsselmann. 1% is an iPhone app. Steps are written by an AI language model.</p>
   </div>
 </footer>
 
