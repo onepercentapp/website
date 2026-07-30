@@ -1,7 +1,6 @@
 # Placeholders
 
-Almost all of them are filled in. Two are left, and one of those is a real
-blocker.
+Almost all of them are filled in. One is left, and it is not a blocker.
 
 ```
 grep -rn '{{' .
@@ -13,8 +12,7 @@ grep -rn '{{' .
 
 | Placeholder | Where | What goes there |
 | --- | --- | --- |
-| `{{COMPANY_ADDRESS}}` | `imprint.html` ×2, `privacy.html`, `terms.html` | **Blocker.** Full postal address — street and number, postcode, town. The word `Germany` is already printed on the line below it, so leave that out. § 5 DDG requires a real address; a P.O. box is not enough. Until this is replaced the pages render the literal `{{COMPANY_ADDRESS}}`, which reads as a broken site. |
-| `{{APP_STORE_URL}}` | `index.html` | Not a blocker — it only appears inside an HTML comment. See "App Store badge" below. |
+| `{{APP_STORE_URL}}` | `index.html` | Only appears inside an HTML comment. See "App Store badge" below. |
 
 ## Filled in
 
@@ -22,6 +20,9 @@ grep -rn '{{' .
 | --- | --- |
 | Site URL | `https://onepercentapp.xyz` |
 | Operator and responsible person | Luis Krüsselmann |
+| Postal address | `c/o Impressumservice Dein-Impressum, Stettiner Str. 41, 35410 Hungen` — a service address. `Germany` is printed on the line below it in the address blocks, so it is not part of the value. Used in `imprint.html` ×2, `privacy.html` and `terms.html`. |
+| Imprint email | `info@onepercentapp.xyz` — **a second mailbox that has to exist and be read.** It is the § 5 DDG contact and is not the same address as support. |
+| Phone | `0157 9234 1658`, operated by the imprint service. Linked as `tel:+4915792341658` so it dials from a phone. |
 | Support and privacy email | `support@onepercentapp.xyz` — **this mailbox has to exist and be read.** Apple checks the address behind the support URL, and the privacy policy names it as the route for GDPR requests. |
 | Response time | two business days |
 | Last updated | 2026-07-28 |
@@ -32,16 +33,15 @@ grep -rn '{{' .
 
 ## Removed rather than filled
 
+The `{{PHONE}}` row was on this list while there was no number to publish. There
+is one now, so the imprint has a phone row again — German case law wants a second
+fast route beside email, and that risk is no longer being carried.
+
 - **`{{OG_IMAGE}}`** — there is no `og.png` in this folder, and pointing link
   previews at a file that 404s is worse than having no preview image. The
   `og:image` and `twitter:image` tags are gone and `twitter:card` is now
   `summary`. To bring them back: drop a 1200 × 630 PNG in this folder, add the
   four tags to each page, and set the card back to `summary_large_image`.
-- **`{{PHONE}}`** — the imprint no longer has a phone row. German case law
-  wants a second fast contact route beside email, and a phone number is the
-  usual one; email alone is the common practice for a solo developer and the
-  risk that comes with it is accepted here. Add the row back if you would
-  rather publish a number.
 - **`{{VAT_ID}}`, `{{REGISTER_COURT}}`, `{{REGISTER_NUMBER}}`** — the whole
   "Register" and "VAT identification number" sections are gone. A natural
   person is not entered in a commercial register, and § 27a UStG only requires
