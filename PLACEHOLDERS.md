@@ -12,7 +12,7 @@ grep -rn '{{' .
 
 | Placeholder | Where | What goes there |
 | --- | --- | --- |
-| `{{APP_STORE_URL}}` | `index.html` | Only appears inside an HTML comment. See "App Store badge" below. |
+| `{{APP_STORE_URL}}` | `/` | Only appears inside an HTML comment. See "App Store badge" below. |
 
 ## Filled in
 
@@ -20,7 +20,7 @@ grep -rn '{{' .
 | --- | --- |
 | Site URL | `https://onepercentapp.xyz` |
 | Operator and responsible person | Luis Krüsselmann |
-| Postal address | `c/o Impressumservice Dein-Impressum, Stettiner Str. 41, 35410 Hungen` — a service address. `Germany` is printed on the line below it in the address blocks, so it is not part of the value. Used in `imprint.html` ×2, `privacy.html` and `terms.html`. |
+| Postal address | `c/o Impressumservice Dein-Impressum, Stettiner Str. 41, 35410 Hungen` — a service address. `Germany` is printed on the line below it in the address blocks, so it is not part of the value. Used in `/imprint` ×2, `/privacy` and `/terms`. |
 | Imprint email | `info@onepercentapp.xyz` — **a second mailbox that has to exist and be read.** It is the § 5 DDG contact and is not the same address as support. |
 | Phone | `0157 9234 1658`, operated by the imprint service. Linked as `tel:+4915792341658` so it dials from a phone. |
 | Support and privacy email | `support@onepercentapp.xyz` — **this mailbox has to exist and be read.** Apple checks the address behind the support URL, and the privacy policy names it as the route for GDPR requests. |
@@ -47,7 +47,7 @@ fast route beside email, and that risk is no longer being carried.
   person is not entered in a commercial register, and § 27a UStG only requires
   a VAT ID to be shown if one has been issued. **If you do have a VAT ID, it
   must go back in** — that one is not optional.
-- **`{{SUPERVISORY_AUTHORITY}}`** — the sentence in `privacy.html` was
+- **`{{SUPERVISORY_AUTHORITY}}`** — the sentence in `/privacy` was
   rewritten so it does not name one. It points at the reader's own authority
   under Article 77 GDPR instead. Naming the authority for your state is still
   better practice; say which state and it can be put back.
@@ -56,7 +56,7 @@ fast route beside email, and that risk is no longer being carried.
 
 ## App Store badge
 
-`index.html` renders a plain "Coming to the App Store" pill instead of a badge,
+`/` renders a plain "Coming to the App Store" pill instead of a badge,
 so there is no dead link while the app is unreleased.
 
 When the app is live:
@@ -65,7 +65,7 @@ When the app is live:
    Marketing Resources and Identity Guidelines.
 2. Save it into this folder as `app-store-badge.svg`. Do not hotlink Apple's
    copy — the site makes no external requests, and that would be the only one.
-3. In `index.html`, swap the `<span class="pill">…</span>` for the anchor in the
+3. In `/`, swap the `<span class="pill">…</span>` for the anchor in the
    comment directly above it, and fill in `{{APP_STORE_URL}}`.
 
 The pill is sized to 156 × 52 CSS px, which is the standard render size of

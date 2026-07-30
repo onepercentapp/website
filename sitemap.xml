@@ -7,19 +7,19 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://onepercentapp.xyz/privacy.html</loc>
+    <loc>https://onepercentapp.xyz//privacy</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://onepercentapp.xyz/terms.html</loc>
+    <loc>https://onepercentapp.xyz//terms</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://onepercentapp.xyz/support.html</loc>
+    <loc>https://onepercentapp.xyz//support</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -31,7 +31,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://onepercentapp.xyz/imprint.html</loc>
+    <loc>https://onepercentapp.xyz//imprint</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
