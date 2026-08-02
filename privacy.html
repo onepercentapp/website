@@ -44,14 +44,14 @@
     <div class="page-head">
       <p class="eyebrow">Privacy</p>
       <h1 class="display">Privacy policy</h1>
-      <p class="updated">Last updated 2026-07-28</p>
+      <p class="updated">Last updated 2026-08-02</p>
     </div>
 
     <div class="prose">
 
       <section>
         <h2>The short version</h2>
-        <p class="lede">Your goal and your progress live on your phone. Two things send data off it. First, when you ask 1% for a path, the text of your goal goes to our backend and on to Google's Gemini API, which writes the steps. Second, <strong>if you create an account</strong>, your goal and your progress are copied to our backend as a backup, so a new phone can get them back. An account is optional and the app works fully without one. There is no analytics SDK, no advertising, no tracking and no cookies.</p>
+        <p class="lede">Your goal and your progress live on your phone. Two things send data off it. First, when you ask 1% for a path, the text of your goal goes to our backend and on to OpenAI's API, which writes the steps. Second, <strong>if you create an account</strong>, your goal and your progress are copied to our backend as a backup, so a new phone can get them back. An account is optional and the app works fully without one. There is no analytics SDK, no advertising, no tracking and no cookies.</p>
       </section>
 
       <section>
@@ -81,7 +81,7 @@
         <h2>What leaves your device, and when</h2>
 
         <h3>Generating a path</h3>
-        <p>You type a goal. The app sends that text over an encrypted connection (HTTPS) to our backend, which runs as Supabase Edge Functions hosted in the EU. The backend passes the text to Google's Gemini API, which writes the steps. The steps come back the same way and are stored on your device.</p>
+        <p>You type a goal. The app sends that text over an encrypted connection (HTTPS) to our backend, which runs as Supabase Edge Functions hosted in the EU. The backend passes the text to OpenAI's API, which writes the steps. The steps come back the same way and are stored on your device.</p>
         <p>This happens whether or not you have an account. Without a connection there is no way to generate a path.</p>
 
         <h3>The backup, if you have an account</h3>
@@ -100,11 +100,11 @@
         <h3>The processors involved</h3>
         <ul>
           <li><strong>Supabase</strong> — our backend, database and sign-in. Edge Functions and project data are hosted in the EU.</li>
-          <li><strong>Google</strong> — the Gemini API, which generates the step text.</li>
+          <li><strong>OpenAI</strong> — the API that generates the step text.</li>
           <li><strong>Resend</strong> — delivers the sign-in codes, if you use an email address rather than Apple. It handles your address and the message; it never sees your goal or your progress.</li>
         </ul>
         <p>We do not send your usage patterns anywhere. There is no analytics pipeline behind any of this.</p>
-        <p>Please do not put names, addresses or other sensitive personal details into your goal text. It does not make the steps better, and it is the field that goes furthest — through our backend to Google.</p>
+        <p>Please do not put names, addresses or other sensitive personal details into your goal text. It does not make the steps better, and it is the field that goes furthest — through our backend to OpenAI.</p>
       </section>
 
       <section>
@@ -173,7 +173,7 @@
       <section>
         <h2>Where the data is</h2>
         <p>Our backend and database run on Supabase infrastructure in the EU. Your account and your backup live there and are not moved anywhere else.</p>
-        <p>Google's Gemini API may process your goal text outside the EU, including in the United States. That transfer is covered by the European Commission's Standard Contractual Clauses together with Google's own transfer safeguards. If you would rather your goal text stayed inside the EU only, the honest answer today is that generating a path is not possible on those terms, and you should not use the app.</p>
+        <p>OpenAI's API may process your goal text outside the EU, including in the United States. That transfer is covered by the European Commission's Standard Contractual Clauses together with OpenAI's own transfer safeguards. If you would rather your goal text stayed inside the EU only, the honest answer today is that generating a path is not possible on those terms, and you should not use the app.</p>
       </section>
 
       <section>

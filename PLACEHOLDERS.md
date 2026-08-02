@@ -80,6 +80,6 @@ actually does. If any of these change in the app, they change here too, and
 `Last updated` moves with them:
 
 - what the optional account copies to the backend,
-- which processors are involved (Supabase, Google Gemini, Resend),
+- which processors are involved (Supabase, OpenAI, Resend),
 - the sign-in methods on offer (Sign in with Apple, email and password),
 - the price and the trial length.
