@@ -1,18 +1,12 @@
 # Placeholders
 
-Almost all of them are filled in. One is left, and it is not a blocker.
+All of them are filled in.
 
 ```
 grep -rn '{{' .
 ```
 
 ---
-
-## Still open
-
-| Placeholder | Where | What goes there |
-| --- | --- | --- |
-| `{{APP_STORE_URL}}` | `/` | Only appears inside an HTML comment. See "App Store badge" below. |
 
 ## Filled in
 
@@ -56,20 +50,23 @@ fast route beside email, and that risk is no longer being carried.
 
 ## App Store badge
 
-`/` renders a plain "Coming to the App Store" pill instead of a badge,
-so there is no dead link while the app is unreleased.
+Done. `/` shows Apple's official black badge, linking to
+`https://apps.apple.com/app/id6795155258`.
 
-When the app is live:
+`6795155258` is the app's Apple ID from App Store Connect → App Information. It
+is not the bundle identifier (`com.onepercentapp.ios`), and the link needs the
+number. No country code in the URL: `apps.apple.com` routes each visitor to
+their own storefront on its own.
 
-1. Download the official black "Download on the App Store" badge from Apple's
-   Marketing Resources and Identity Guidelines.
-2. Save it into this folder as `app-store-badge.svg`. Do not hotlink Apple's
-   copy — the site makes no external requests, and that would be the only one.
-3. In `/`, swap the `<span class="pill">…</span>` for the anchor in the
-   comment directly above it, and fill in `{{APP_STORE_URL}}`.
+Two rules that came with the asset and still apply if it is ever touched:
+`app-store-badge.svg` is served from this folder and Apple's hosted copy is
+never hotlinked — it would be the only external request this site makes — and
+the badge may not be recoloured, which is why `.badge-link` changes nothing
+about it but its opacity.
 
-The pill is sized to 156 × 52 CSS px, which is the standard render size of
-Apple's 119.664 × 40 pt master asset, so the swap causes no layout shift.
+The link resolves only once the app is public. Before that it opens the App
+Store on a page that does not exist yet, which is expected and needs no change
+on release day.
 
 ---
 

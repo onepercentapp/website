@@ -535,11 +535,24 @@ main {
   text-transform: uppercase;
 }
 
-/* App Store slot.
-   Sized to the official Apple badge render size (156 x 52 CSS px, from the
-   119.664 x 40 pt master asset) so swapping the real badge in causes no
-   layout shift. See "Apple Marketing Resources and Identity Guidelines"
-   -> App Store Marketing badge. Do not hotlink Apple's hosted image. */
+/* The App Store badge.
+   inline-block so the anchor takes the image's box rather than a text line's,
+   which is what keeps the focus ring around the badge instead of cutting
+   through it. No hover colour and no filter: Apple's guidelines do not allow
+   the badge to be recoloured, so the only thing that may move is the badge
+   itself. */
+.badge-link {
+  display: inline-block;
+  line-height: 0;
+}
+
+.badge-link:hover {
+  opacity: 0.85;
+}
+
+/* Kept for the other pills on the page. It was also the App Store slot before
+   the real badge existed, sized to the same 156 x 52 so the swap cost no
+   layout shift. */
 .pill {
   display: inline-flex;
   align-items: center;

@@ -62,30 +62,25 @@
     <h1 class="hero-display">A goal.<br>One small step a day.<br></h1>
     <p class="hero-sub body">Tell 1% what you want to get better at. Each day it gives you one step toward it — five to twenty minutes, concrete enough to start right away.</p>
 
+    <!-- The App Store badge. Apple's official black asset, downloaded from the
+         Marketing Resources and Identity Guidelines and served from this origin
+         — hotlinking Apple's copy would be the only external request this site
+         makes, and it is not allowed either.
+
+         The number in the link is the app's Apple ID, assigned when the App
+         Store Connect record was created. No country code: apps.apple.com sends
+         each visitor to their own storefront, and pinning one would send
+         everybody else through a redirect to the wrong country first.
+
+         Rendered at 156 x 52 CSS px, the standard size for the 119.664 x 40 pt
+         master asset. Width and height are on the img so the space is reserved
+         before the SVG loads and the hero does not jump. -->
     <div class="hero-cta">
-      <!--
-        App Store badge slot.
-
-        The app is not on the App Store yet, so this renders as a plain
-        "Coming to the App Store" pill instead of a dead link.
-
-        When {{APP_STORE_URL}} is real, replace the <span> below with the
-        official Apple badge, downloaded from Apple and served from this
-        origin (never hotlinked):
-
-        
-
-        Master asset is 119.664 x 40 pt; 156 x 52 CSS px is the standard
-        render size, which is what .pill is sized to, so the swap causes no
-        layout shift. Minimum size, clear space and colour rules are in
-        Apple's "Marketing Resources and Identity Guidelines".
-        <span class="pill">Coming to the App Store</span>
+      <a href="https://apps.apple.com/app/id6795155258" class="badge-link">
+        <img src="app-store-badge.svg" width="156" height="52"
+             alt="Download 1% on the App Store">
+      </a>
       <p class="cta-note">iPhone, iOS.</p>
-      -->
-      <a href="{{APP_STORE_URL}}" class="badge-link">
-          <img src="app-store-badge.svg" width="156" height="52"
-               alt="Download 1% on the App Store">
-        </a>
     </div>
 
     <!-- Three App Store shots, served from this origin like everything else.
