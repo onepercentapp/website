@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy — 1%</title>
 <meta name="description" content="What 1% stores on your device, what leaves it and when, who processes it, and what you can ask us to do with it.">
-<link rel="canonical" href="https://onepercentapp.xyz//privacy">
+<link rel="canonical" href="https://onepercentapp.xyz/privacy">
 <meta name="robots" content="index, follow">
 
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="1%">
 <meta property="og:locale" content="en">
-<meta property="og:url" content="https://onepercentapp.xyz//privacy">
+<meta property="og:url" content="https://onepercentapp.xyz/privacy">
 <meta property="og:title" content="Privacy — 1%">
 <meta property="og:description" content="What 1% stores on your device, what leaves it and when, who processes it, and what you can ask us to do with it.">
 <meta property="og:image" content="https://onepercentapp.xyz/og.png">
@@ -49,14 +49,14 @@
     <div class="page-head">
       <p class="eyebrow">Privacy</p>
       <h1 class="display">Privacy policy</h1>
-      <p class="updated">Last updated 2026-08-02</p>
+      <p class="updated">Last updated 2026-08-05</p>
     </div>
 
     <div class="prose">
 
       <section>
         <h2>The short version</h2>
-        <p class="lede">Your goal and your progress live on your phone. Two things send data off it. First, when you ask 1% for a path, the text of your goal goes to our backend and on to OpenAI's API, which writes the steps. Second, <strong>if you create an account</strong>, your goal and your progress are copied to our backend as a backup, so a new phone can get them back. An account is optional and the app works fully without one. There is no analytics SDK, no advertising, no tracking and no cookies.</p>
+        <p class="lede">Your goal and your progress live on your phone. Two things send data off it. First, when you ask 1% for a path, the text of your goal goes to our backend and on to OpenAI's API, which writes the steps. Second, your goal and your progress are copied to our backend as a backup, so a new phone can get them back. Both need an account: <strong>generating a path requires you to be signed in</strong>, because the backend has nothing to rate-limit or attach a path to otherwise. Everything after that — your daily step, your streak, the whole app — runs on your phone with no connection. There is no analytics SDK, no advertising, no tracking and no cookies.</p>
       </section>
 
       <section>
@@ -77,8 +77,8 @@
       <section>
         <h2>What is stored on your device</h2>
         <p>The goal you wrote, the steps you have been given, which ones you marked done, which ones you swapped, your streak, your total number of steps and your level are stored in a local database inside the app on your iPhone. So are the first name you gave during setup, your reminder time and your theme.</p>
-        <p>That local database is the real one. Every screen reads it, and the app runs with no connection and no account.</p>
-        <p>If you never create an account, none of it is uploaded anywhere. The only thing that leaves the phone is the goal text at the moment a path is generated, described below.</p>
+        <p>That local database is the real one. Every screen reads it, and once you have a path the app runs with no connection at all.</p>
+        <p>Generating a path is the one thing that needs the network and an account. Everything else — your daily step, ticking it off, your streak, your level, your settings — happens on the phone.</p>
         <p>If you have iCloud device backup switched on, iOS may include the app's local data in your own encrypted Apple backup. That backup is yours and is handled under Apple's terms, not ours.</p>
       </section>
 
@@ -87,20 +87,30 @@
 
         <h3>Generating a path</h3>
         <p>You type a goal. The app sends that text over an encrypted connection (HTTPS) to our backend, which runs as Supabase Edge Functions hosted in the EU. The backend passes the text to OpenAI's API, which writes the steps. The steps come back the same way and are stored on your device.</p>
-        <p>This happens whether or not you have an account. Without a connection there is no way to generate a path.</p>
+        <p>You have to be signed in for this. The backend refuses a request without an account, because an account is what the daily limit and the path both hang on. Without a connection, or without an account, there is no way to generate a path.</p>
+        <p>Two records are kept on our side after the steps come back:</p>
+        <ul>
+          <li><strong>A request log.</strong> Your account identifier, the normalised goal text and the time, once per request. It is what enforces the daily generation limit and stops the backend being drained by automated requests. Nothing else is in it, no client can read it, and it is deleted with your account.</li>
+          <li><strong>A shared cache.</strong> A generated path is stored under the normalised goal text, so that "get fitter" is written once and everyone who types it gets it instantly instead of waiting. The cache row keeps one example of the wording someone actually typed, so we can review which goals are popular. It is not attached to an account, and any signed-in user of the app can be served it. Assume a goal you type may be read by someone else in this form, and see the note below about what not to put in it.</li>
+        </ul>
 
-        <h3>The backup, if you have an account</h3>
-        <p>Creating an account is optional. The app asks once during setup and you can skip it, and everything except the backup works the same afterwards.</p>
-        <p>If you do sign in, the app copies your local database to our backend and keeps that copy up to date — when you finish setup, when you finish a step, when you swap one, and when the app goes into the background. The copy exists for one purpose: putting your goal and your progress back on a new or reinstalled phone when you sign in there.</p>
+        <h3>The backup</h3>
+        <p>The backup comes with the account you already need in order to generate a path. There is no separate opt-in and no way to have one without the other.</p>
+        <p>The app copies your local database to our backend and keeps that copy up to date — when you finish setup, when you finish a step, when you swap one, when you change your name, language, reminder or theme, and when the app goes into the background. The copy exists for one purpose: putting your goal and your progress back on a new or reinstalled phone when you sign in there.</p>
         <p>What the copy contains:</p>
         <ul>
           <li>Your goal, in the words you typed, and the generated path attached to it.</li>
           <li>Each day's step, its date, and the text of any generated step.</li>
           <li>Which steps you completed or skipped, and when.</li>
-          <li>Which steps you swapped away, and when.</li>
+          <li>Which steps you swapped away, when, and the reason you picked for the swap.</li>
+          <li>The order the steps of your path were shuffled into, so a new phone deals them the same way.</li>
           <li>Your reminder time, your locale, your theme, and the first name you gave during setup.</li>
+          <li>The answers you gave during setup that shaped the path: how much time a day you said was realistic, the anchor you chose, and the sentence you wrote on the vision screen, in your words.</li>
         </ul>
         <p>Row-level security in the database means a signed-in account can read and write only its own rows. Deleting your account deletes this copy — see below.</p>
+
+        <h3>Sharing a progress card</h3>
+        <p>If you tap share, the app draws a card with your streak and your step count on it and hands the image to whatever you pick — Photos, Messages, Instagram, anything else on your phone that accepts an image. It goes straight from your phone to that app; it does not pass through our backend, and we do not learn that you shared or where. Once it is in another app it is under that app's own privacy policy, not ours. Nothing is shared unless you tap.</p>
 
         <h3>The processors involved</h3>
         <ul>
@@ -109,7 +119,7 @@
           <li><strong>Resend</strong> — delivers the sign-in codes, if you use an email address rather than Apple. It handles your address and the message; it never sees your goal or your progress.</li>
         </ul>
         <p>We do not send your usage patterns anywhere. There is no analytics pipeline behind any of this.</p>
-        <p>Please do not put names, addresses or other sensitive personal details into your goal text. It does not make the steps better, and it is the field that goes furthest — through our backend to OpenAI.</p>
+        <p>Please do not put names, addresses or other sensitive personal details into your goal text. It does not make the steps better, and it is the field that goes furthest — through our backend to OpenAI, into the request log, and possibly into the shared cache described above, where it is no longer tied to you but can be served to someone else who types the same goal.</p>
       </section>
 
       <section>
@@ -121,7 +131,7 @@
 
       <section>
         <h2>Accounts</h2>
-        <p>An account is optional. Its only job is the backup described above: it is what carries your goal and your progress to a new phone. You can use 1% without ever creating one, and the app does not create one for you in the background.</p>
+        <p>An account does two jobs. It authorises the path generation described above, which is why the app cannot write you a path until you have one, and it carries your goal and your progress to a new phone. The app never creates one for you in the background: it asks, and signing in is a thing you do deliberately. Earlier versions minted an invisible account for every install; that is gone, and nothing about you reaches our backend until you choose to sign in.</p>
 
         <h3>Sign in with Apple</h3>
         <p>Apple gives the app an opaque user identifier, and — only if you agree to share it — an email address. That address may be one of Apple's private relay addresses, which is fine; we never need to know your real one. Apple also passes your name once, on the very first sign-in; the app keeps the first name on your device as a suggestion for the name screen and nothing more. We receive no photo, no profile and no password.</p>
@@ -131,13 +141,14 @@
         <p>The same thing happens whether or not the address already has an account, so this form cannot be used to find out which addresses are registered. The emails are delivered by Resend. We send nothing else — no newsletter, no product mail, no re-engagement nudges.</p>
 
         <h3>What the identifier is for</h3>
-        <p>We use it to recognise the same account on a new device, to attach your backup to you, and to keep your subscription status with the right account. We use an email address, if we have one, to reply to you if you write to support.</p>
+        <p>We use it to recognise the same account on a new device, to attach your backup to you, and to count your path generations against the daily limit. We use an email address, if we have one, to reply to you if you write to support. It is not sent to RevenueCat and plays no part in your subscription — see below.</p>
       </section>
 
       <section>
         <h2>Subscriptions and payment</h2>
-        <p>Subscriptions are sold by Apple through the App Store and managed with RevenueCat, which keeps track of whether a given account has an active subscription.</p>
-        <p>The app never sees your card details, your name or your billing address. Apple handles the payment and Apple's own privacy policy covers it. What RevenueCat holds is an anonymous app user identifier, the transaction identifiers Apple issues and the status of your subscription.</p>
+        <p>Subscriptions are sold by Apple through the App Store and managed with RevenueCat, which keeps track of whether a subscription is active.</p>
+        <p>The app never sees your card details, your name or your billing address. Apple handles the payment and Apple's own privacy policy covers it. What RevenueCat holds is an anonymous app user identifier it generates itself, the transaction identifiers Apple issues and the status of your subscription.</p>
+        <p>We never tell RevenueCat who you are. Your 1% account identifier and your email address are not sent to it, so the subscription is not linked to your account on our side — it follows your Apple ID, the way App Store purchases normally do. On a new phone, Restore Purchases is what brings it back.</p>
       </section>
 
       <section>
@@ -162,7 +173,7 @@
           <dd>Article 6(1)(b) GDPR — running your account and your subscription.</dd>
 
           <dt>Backing up your goal and progress</dt>
-          <dd>Article 6(1)(b) GDPR — the backup is the thing an account is for, and creating one is your choice. No account, no copy.</dd>
+          <dd>Article 6(1)(b) GDPR — the backup is part of what the account is for, and creating an account is your choice. No account, no copy.</dd>
 
           <dt>Sign in with Apple, if you use it</dt>
           <dd>Article 6(1)(b) GDPR, and Article 6(1)(a) for an email address you choose to share.</dd>
@@ -171,7 +182,7 @@
           <dd>Article 6(1)(b) GDPR — with no password there is no other way to prove the address is yours.</dd>
 
           <dt>Keeping the service working and stopping abuse</dt>
-          <dd>Article 6(1)(f) GDPR — our legitimate interest in a backend that stays up and is not being drained by automated requests.</dd>
+          <dd>Article 6(1)(f) GDPR — our legitimate interest in a backend that stays up and is not being drained by automated requests. This is the ground for the request log and for the shared path cache, both described above.</dd>
         </dl>
       </section>
 
@@ -187,7 +198,8 @@
           <li><strong>On your device</strong> — until you delete the app or clear its data. Deleting the app from your iPhone removes the local database with it.</li>
           <li><strong>Account records</strong> — until you delete your account. Deletion removes the account row and everything attached to it.</li>
           <li><strong>Your backup</strong> — for as long as the account exists. It is deleted with the account, in the same step. It is not archived and there is no separate retention period for it.</li>
-          <li><strong>Generated paths</strong> — a generated path may be kept on our side as a cache so the same request does not have to be regenerated. After account deletion, anything retained is held without any link to a person or an account.</li>
+          <li><strong>The request log</strong> — the account identifier, normalised goal text and time of each generation request. Deleted with your account, in the same step.</li>
+          <li><strong>The shared path cache</strong> — kept for as long as the goal is worth caching, and not deleted with your account, because the row belongs to the goal rather than to you. It carries no account identifier at any point, so after deletion there is nothing left tying it to a person.</li>
           <li><strong>Support email</strong> — kept as long as needed to deal with your message, then removed.</li>
           <li><strong>Subscription records</strong> — Apple and RevenueCat keep transaction records for as long as tax and accounting rules require. That part is not ours to erase.</li>
         </ul>
