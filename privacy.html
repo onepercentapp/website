@@ -56,7 +56,7 @@
 
       <section>
         <h2>The short version</h2>
-        <p class="lede">Your goal and your progress live on your phone. Three things send data off it. First, when you ask 1% for a path, the text of your goal goes to our backend and on to OpenAI's API, which writes the steps. Second, your goal and your progress are copied to our backend as a backup, so a new phone can get them back. Those two need an account: <strong>generating a path requires you to be signed in</strong>, because the backend has nothing to rate-limit or attach a path to otherwise. Third, the app reports which of its features get used and what crashed, so we can fix it — <strong>never the text of your goal, your steps or anything else you wrote</strong>. Everything else — your daily step, your streak, the whole app — runs on your phone with no connection. There is no advertising, no ad identifier and no cookies.</p>
+        <p class="lede">Your goal and your progress live on your phone. Two things send data off it, and a third only if you switch it on. First, when you ask 1% for a path, the text of your goal goes to our backend and on to OpenAI's API, which writes the steps. Second, your goal and your progress are copied to our backend as a backup, so a new phone can get them back. Those two need an account: <strong>generating a path requires you to be signed in</strong>, because the backend has nothing to rate-limit or attach a path to otherwise. Third, the app reports which of its features get used and what crashed, so we can fix it — never the text of your goal, your steps or anything else you wrote. In the EEA and the UK that one waits until you agree; the app asks once, at the start of setup. Everywhere it can be switched off in Settings. Everything else — your daily step, your streak, the whole app — runs on your phone with no connection. There is no advertising, no ad identifier and no cookies.</p>
       </section>
 
       <section>
@@ -113,12 +113,16 @@
         <p>If you tap share, the app draws a card with your streak and your step count on it and hands the image to whatever you pick — Photos, Messages, Instagram, anything else on your phone that accepts an image. It goes straight from your phone to that app; it does not pass through our backend, and we do not learn that you shared or where. Once it is in another app it is under that app's own privacy policy, not ours. Nothing is shared unless you tap.</p>
 
         <h3>Product analytics and crash reports</h3>
-        <p>The app sends a small stream of events to PostHog so we can see which parts of 1% are actually used and what is breaking. It is first-party and product-only — we are looking at the app, not at you — and unlike everything above, it runs from the first launch, before you have an account.</p>
-        <p>What an event carries:</p>
+        <p>The app can send a small stream of events to PostHog so we can see which parts of 1% are actually used and what is breaking. It is first-party and product-only: we are looking at the app, not at you.</p>
+        <p><strong>If your phone is set to a country in the EEA or the UK, none of it happens unless you say yes.</strong> The app asks once, when you tap through the first screen of setup: two buttons, no pre-ticked box, and nothing collected before you answer. Say no and it does not ask again — there is no "later" that comes back tomorrow.</p>
+        <p>We ask there because saying yes is what puts an identifier into the app's storage on your phone, and § 25 TTDSG treats writing to your device as something you agree to first unless the app genuinely cannot work without it. This one can: with the analytics off, 1% does exactly the same things.</p>
+        <p><strong>Everywhere else the analytics are on from the first launch</strong>, under Article 6(1)(f) GDPR — our legitimate interest in knowing which parts of the app are used and which are broken, which is what a one-person app has instead of a support team. That rule is not ours to apply worldwide: it is a European one, tied to where you are rather than to where we are, so outside its reach the app does not stage a question whose answer is already settled. What is collected is identical either way, and the list below is the whole of it.</p>
+        <p>Which side you land on is read from your phone's Region setting, falling back to its timezone. That is an approximation and we would rather say so: a German phone on holiday abroad still reads as German, and an English-language phone in Berlin may not. Whichever side you are on, the switch in Settings is the real answer — <strong>turning the analytics off there works everywhere, immediately, and is the same one tap.</strong> It closes the connection and clears the identifier described below from your phone; turning them on later starts a fresh one with no link to anything from before.</p>
+        <p>What an event carries, once it is on:</p>
         <ul>
-          <li><strong>That something happened.</strong> A goal was submitted during setup; a step was completed, swapped, or given a reason for the swap; a check-in was written; a subscription was bought or restored. Plus the app being installed, opened, updated, or sent to the background.</li>
+          <li><strong>That something happened.</strong> A goal was submitted during setup; a path was written for it, or failed to be; a step was completed, swapped, or given a reason for the swap; a check-in was written; a sign-in was attempted; the notification prompt was answered; a subscription was bought or restored, or was not. Plus the app being installed, opened, updated, or sent to the background.</li>
           <li><strong>Which screen you opened, and in what order.</strong> By its address in the app — <code>/welcome</code>, <code>/paywall</code>, <code>/settings</code>. Setup runs to nearly thirty screens and this is how we find out which one people close the app on. One screen is left out of this, on purpose: see below.</li>
-          <li><strong>A few values attached to those.</strong> The length of your streak, whether you levelled up, which of the three fixed swap reasons you tapped, whether a subscription is monthly or yearly and whether it started with a trial. None of it is free text.</li>
+          <li><strong>A few values attached to those.</strong> The length of your streak, whether you levelled up, which of the three fixed swap reasons you tapped, whether a subscription is monthly or yearly and whether it started with a trial, whether you allowed notifications, whether you signed in with Apple or a code, and how each of those ended — the name of the failure when one failed, from a fixed list. For a path: how long it took to write, how many of the setup questions you answered, and whether it came from the shared cache. None of it is free text.</li>
           <li><strong>The device.</strong> Model, manufacturer, iOS version, and whether it is a simulator. No advertising identifier; not the name you gave your phone.</li>
           <li><strong>An identifier.</strong> A random one the app generates on first launch and stores locally. Once you sign in, events carry your account identifier instead, and your email address is attached to that profile so a support message can be matched to what we see.</li>
           <li><strong>Errors.</strong> When the app throws something it does not handle, the type of the error, its message and the stack trace are reported.</li>
@@ -176,7 +180,7 @@
           <li>No session recording. The analytics described above are events — nobody replays your screen.</li>
           <li>No content in the analytics. Your goal text, your steps and everything else you typed stay out of it.</li>
         </ul>
-        <p>Earlier versions of this policy said there was no analytics SDK at all. That changed with the version that introduced product analytics and crash reporting, and the section above says exactly what it does and does not carry.</p>
+        <p>Earlier versions of this policy said there was no analytics SDK at all. That changed with the version that introduced product analytics and crash reporting — off unless you switch it on, and the section above says exactly what it does and does not carry.</p>
       </section>
 
       <section>
@@ -201,7 +205,7 @@
           <dd>Article 6(1)(f) GDPR — our legitimate interest in a backend that stays up and is not being drained by automated requests. This is the ground for the request log and for the shared path cache, both described above.</dd>
 
           <dt>Product analytics and crash reports</dt>
-          <dd>Article 6(1)(f) GDPR — our legitimate interest in knowing which parts of the app are used and which of them are broken, which is what a one-person app has instead of a support team. The events carry no content you wrote, which is what keeps that interest ahead of your own. You can object under Article 21 — see Your rights, below.</dd>
+          <dd>In the EEA and the UK: Article 6(1)(a) GDPR — your consent, given by answering the question the app puts once at the start of setup, and withdrawn at any time from Settings. § 25(1) TTDSG applies to the same act, because saying yes is what stores an identifier on your device. Elsewhere: Article 6(1)(f) GDPR — our legitimate interest in a working app, with the same switch in Settings as the way out. Withdrawing takes effect immediately either way and does not affect what was collected before.</dd>
         </dl>
       </section>
 

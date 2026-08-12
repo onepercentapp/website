@@ -97,6 +97,15 @@ live in `src/lib/posthog.ts` and in the `posthog?.capture(` calls across
 `src/`; the properties they carry are the second argument. If one gains a
 property, the policy gains a line.
 
+The analytics work differently depending on where the phone is set, and the
+policy says so in the first two paragraphs of that section. In the EEA and the
+UK they are off until the sheet on the way out of the welcome screen is answered
+with a yes; everywhere else they are on from first launch under legitimate
+interest. The region list is `src/lib/consent-region.ts` and
+`npm run check:consent` runs the real function against the locales that are easy
+to get wrong. If that list, the default, or the moment of the question changes,
+those two paragraphs are wrong before anything else is — they name all three.
+
 Screen views are reported by pathname, and the crisis screen is excluded from
 them by name in `src/app/_layout.tsx`. The policy says so out loud, because it
 is the one promise in that section a reader cannot check for themselves.
