@@ -19,7 +19,7 @@ grep -rn '{{' .
 | Phone | `0157 9234 1658`, operated by the imprint service. Linked as `tel:+4915792341658` so it dials from a phone. |
 | Support and privacy email | `support@onepercentapp.xyz` — **this mailbox has to exist and be read.** Apple checks the address behind the support URL, and the privacy policy names it as the route for GDPR requests. |
 | Response time | two business days |
-| Last updated | 2026-08-05 |
+| Last updated | 2026-08-12 |
 | Copyright year | 2026 |
 | Price | €4.99 per month, €29.99 per year |
 | Trial | 3 days |
@@ -78,12 +78,23 @@ actually does. If any of these change in the app, they change here too, and
 
 - what the account copies to the backend, and what it is required for,
 - what the backend keeps of its own accord (the request log, the shared path cache),
-- which processors are involved (Supabase, OpenAI, Resend),
+- which processors are involved (Supabase, OpenAI, Resend, PostHog),
+- which events the app reports and what they carry,
 - the sign-in methods on offer (Sign in with Apple, email and a one-time code),
 - the price and the trial length.
 
-Two of these are easy to get wrong because they are invisible from the app.
+Three of these are easy to get wrong because they are invisible from the app.
 Path generation needs a signed-in account — the edge function answers 401
 without one, and anonymous sign-in was removed rather than kept as a fallback.
-And the generated-path cache is shared across users rather than per account,
+The generated-path cache is shared across users rather than per account,
 which is why the policy warns against personal details in the goal text.
+And the analytics start at first launch, before there is an account at all,
+which is the one thing the app does that no screen mentions.
+
+The analytics section of the policy is written from the code, not from a
+product decision, so it goes stale the moment an event is added. The events
+live in `src/lib/posthog.ts` and in the `posthog?.capture(` calls across
+`src/`; the properties they carry are the second argument. If one gains a
+property, the policy gains a line. Screen tracking in particular is **not**
+described there, because the app does not send screen views — add that
+sentence in the same commit that turns it on.

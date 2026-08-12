@@ -49,14 +49,14 @@
     <div class="page-head">
       <p class="eyebrow">Privacy</p>
       <h1 class="display">Privacy policy</h1>
-      <p class="updated">Last updated 2026-08-05</p>
+      <p class="updated">Last updated 2026-08-12</p>
     </div>
 
     <div class="prose">
 
       <section>
         <h2>The short version</h2>
-        <p class="lede">Your goal and your progress live on your phone. Two things send data off it. First, when you ask 1% for a path, the text of your goal goes to our backend and on to OpenAI's API, which writes the steps. Second, your goal and your progress are copied to our backend as a backup, so a new phone can get them back. Both need an account: <strong>generating a path requires you to be signed in</strong>, because the backend has nothing to rate-limit or attach a path to otherwise. Everything after that — your daily step, your streak, the whole app — runs on your phone with no connection. There is no analytics SDK, no advertising, no tracking and no cookies.</p>
+        <p class="lede">Your goal and your progress live on your phone. Three things send data off it. First, when you ask 1% for a path, the text of your goal goes to our backend and on to OpenAI's API, which writes the steps. Second, your goal and your progress are copied to our backend as a backup, so a new phone can get them back. Those two need an account: <strong>generating a path requires you to be signed in</strong>, because the backend has nothing to rate-limit or attach a path to otherwise. Third, the app reports which of its features get used and what crashed, so we can fix it — <strong>never the text of your goal, your steps or anything else you wrote</strong>. Everything else — your daily step, your streak, the whole app — runs on your phone with no connection. There is no advertising, no ad identifier and no cookies.</p>
       </section>
 
       <section>
@@ -112,13 +112,26 @@
         <h3>Sharing a progress card</h3>
         <p>If you tap share, the app draws a card with your streak and your step count on it and hands the image to whatever you pick — Photos, Messages, Instagram, anything else on your phone that accepts an image. It goes straight from your phone to that app; it does not pass through our backend, and we do not learn that you shared or where. Once it is in another app it is under that app's own privacy policy, not ours. Nothing is shared unless you tap.</p>
 
+        <h3>Product analytics and crash reports</h3>
+        <p>The app sends a small stream of events to PostHog so we can see which parts of 1% are actually used and what is breaking. It is first-party and product-only — we are looking at the app, not at you — and unlike everything above, it runs from the first launch, before you have an account.</p>
+        <p>What an event carries:</p>
+        <ul>
+          <li><strong>That something happened.</strong> A goal was submitted during setup; a step was completed, swapped, or given a reason for the swap; a check-in was written; a subscription was bought or restored. Plus the app being installed, opened, updated, or sent to the background.</li>
+          <li><strong>A few values attached to those.</strong> The length of your streak, whether you levelled up, which of the three fixed swap reasons you tapped, whether a subscription is monthly or yearly and whether it started with a trial. None of it is free text.</li>
+          <li><strong>The device.</strong> Model, manufacturer, iOS version, and whether it is a simulator. No advertising identifier; not the name you gave your phone.</li>
+          <li><strong>An identifier.</strong> A random one the app generates on first launch and stores locally. Once you sign in, events carry your account identifier instead, and your email address is attached to that profile so a support message can be matched to what we see.</li>
+          <li><strong>Errors.</strong> When the app throws something it does not handle, the type of the error, its message and the stack trace are reported.</li>
+          <li><strong>Your IP address</strong>, at the moment events are sent. PostHog derives an approximate country and region from it.</li>
+        </ul>
+        <p>What an event never carries: the text of your goal, the text of any step, the sentence you wrote on the vision screen, your check-in notes, your name, or anything else you typed. An event says a step was completed. It does not say which step, or what it said.</p>
+
         <h3>The processors involved</h3>
         <ul>
           <li><strong>Supabase</strong> — our backend, database and sign-in. Edge Functions and project data are hosted in the EU.</li>
           <li><strong>OpenAI</strong> — the API that generates the step text.</li>
           <li><strong>Resend</strong> — delivers the sign-in codes, if you use an email address rather than Apple. It handles your address and the message; it never sees your goal or your progress.</li>
+          <li><strong>PostHog</strong> — the product analytics and crash reporting described above, on their EU cloud. It never sees your goal text, your steps or your backup.</li>
         </ul>
-        <p>We do not send your usage patterns anywhere. There is no analytics pipeline behind any of this.</p>
         <p>Please do not put names, addresses or other sensitive personal details into your goal text. It does not make the steps better, and it is the field that goes furthest — through our backend to OpenAI, into the request log, and possibly into the shared cache described above, where it is no longer tied to you but can be served to someone else who types the same goal.</p>
       </section>
 
@@ -154,13 +167,14 @@
       <section>
         <h2>What we do not do</h2>
         <ul>
-          <li>No analytics SDK. We do not measure screens, sessions or funnels.</li>
-          <li>No advertising and no ad identifiers. We do not ask for tracking permission because we have nothing to track you with.</li>
+          <li>No advertising and no ad identifiers. We do not ask for App Tracking Transparency permission, because we do not track you across other companies' apps or sites.</li>
           <li>No third-party cookies. No first-party cookies either, in the app or on this site.</li>
           <li>No fingerprinting, no device graph, no cross-app or cross-site profiles.</li>
           <li>No selling or sharing of personal data. There is nothing to sell.</li>
+          <li>No session recording. The analytics described above are events — nobody replays your screen.</li>
+          <li>No content in the analytics. Your goal text, your steps and everything else you typed stay out of it.</li>
         </ul>
-        <p>If crash reporting is ever added, it will be stated here first, and it will carry technical crash information only — never your goal text, your steps or anything else you wrote.</p>
+        <p>Earlier versions of this policy said there was no analytics SDK at all. That changed with the version that introduced product analytics and crash reporting, and the section above says exactly what it does and does not carry.</p>
       </section>
 
       <section>
@@ -183,12 +197,16 @@
 
           <dt>Keeping the service working and stopping abuse</dt>
           <dd>Article 6(1)(f) GDPR — our legitimate interest in a backend that stays up and is not being drained by automated requests. This is the ground for the request log and for the shared path cache, both described above.</dd>
+
+          <dt>Product analytics and crash reports</dt>
+          <dd>Article 6(1)(f) GDPR — our legitimate interest in knowing which parts of the app are used and which of them are broken, which is what a one-person app has instead of a support team. The events carry no content you wrote, which is what keeps that interest ahead of your own. You can object under Article 21 — see Your rights, below.</dd>
         </dl>
       </section>
 
       <section>
         <h2>Where the data is</h2>
         <p>Our backend and database run on Supabase infrastructure in the EU. Your account and your backup live there and are not moved anywhere else.</p>
+        <p>The analytics and crash events go to PostHog's EU cloud and stay there.</p>
         <p>OpenAI's API may process your goal text outside the EU, including in the United States. That transfer is covered by the European Commission's Standard Contractual Clauses together with OpenAI's own transfer safeguards. If you would rather your goal text stayed inside the EU only, the honest answer today is that generating a path is not possible on those terms, and you should not use the app.</p>
       </section>
 
@@ -200,6 +218,7 @@
           <li><strong>Your backup</strong> — for as long as the account exists. It is deleted with the account, in the same step. It is not archived and there is no separate retention period for it.</li>
           <li><strong>The request log</strong> — the account identifier, normalised goal text and time of each generation request. Deleted with your account, in the same step.</li>
           <li><strong>The shared path cache</strong> — kept for as long as the goal is worth caching, and not deleted with your account, because the row belongs to the goal rather than to you. It carries no account identifier at any point, so after deletion there is nothing left tying it to a person.</li>
+          <li><strong>Analytics and crash events</strong> — kept in our PostHog project for as long as its retention window, then dropped automatically. Deleting your account in the app stops any further event being tied to you, but it does not reach back and remove the ones already sent. Ask us and we will delete those too.</li>
           <li><strong>Support email</strong> — kept as long as needed to deal with your message, then removed.</li>
           <li><strong>Subscription records</strong> — Apple and RevenueCat keep transaction records for as long as tax and accounting rules require. That part is not ours to erase.</li>
         </ul>
@@ -216,7 +235,7 @@
           <li><strong>Restriction and objection</strong> — including objecting to anything we do on the grounds of legitimate interest.</li>
           <li><strong>Withdrawal of consent</strong> — where you gave it, with no effect on what happened before.</li>
         </ul>
-        <p>The fastest route for deletion is inside the app: Settings, then Account, then Delete Account. It happens immediately. <a href="delete-account.html">More about deletion</a>.</p>
+        <p>The fastest route for deletion is inside the app: Settings, then Account, then Delete Account. It happens immediately. It covers your account, your backup and your request log; the analytics events already sent are the one thing it does not reach, so say so in an email if you want those gone as well. <a href="delete-account.html">More about deletion</a>.</p>
         <p>For anything else, write to <a href="mailto:support@onepercentapp.xyz">support@onepercentapp.xyz</a>. We reply within two business days and answer inside one month, as the GDPR requires.</p>
         <p>You also have the right to complain to a data protection supervisory authority — the one for the German state we are based in, or, under Article 77 GDPR, the one where you live or where you believe the problem happened. Write to us and we will name ours.</p>
       </section>
@@ -233,7 +252,7 @@
 
       <section>
         <h2>Changes</h2>
-        <p>If this policy changes in a way that matters, the date at the top changes and the app tells you the next time you open it. Small wording fixes will not get an announcement.</p>
+        <p>When this policy changes in a way that matters, the date at the top moves and the change is described in the section it belongs to, rather than being folded in silently — the note about analytics under "What we do not do" is what that looks like. Small wording fixes get neither.</p>
       </section>
 
       <section>
