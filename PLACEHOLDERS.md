@@ -95,6 +95,10 @@ The analytics section of the policy is written from the code, not from a
 product decision, so it goes stale the moment an event is added. The events
 live in `src/lib/posthog.ts` and in the `posthog?.capture(` calls across
 `src/`; the properties they carry are the second argument. If one gains a
-property, the policy gains a line. Screen tracking in particular is **not**
-described there, because the app does not send screen views — add that
-sentence in the same commit that turns it on.
+property, the policy gains a line.
+
+Screen views are reported by pathname, and the crisis screen is excluded from
+them by name in `src/app/_layout.tsx`. The policy says so out loud, because it
+is the one promise in that section a reader cannot check for themselves.
+`npm run check:screens` fails if the exclusion stops matching a real route —
+if that check is ever removed, this paragraph stops being true.

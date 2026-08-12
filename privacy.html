@@ -117,6 +117,7 @@
         <p>What an event carries:</p>
         <ul>
           <li><strong>That something happened.</strong> A goal was submitted during setup; a step was completed, swapped, or given a reason for the swap; a check-in was written; a subscription was bought or restored. Plus the app being installed, opened, updated, or sent to the background.</li>
+          <li><strong>Which screen you opened, and in what order.</strong> By its address in the app — <code>/welcome</code>, <code>/paywall</code>, <code>/settings</code>. Setup runs to nearly thirty screens and this is how we find out which one people close the app on. One screen is left out of this, on purpose: see below.</li>
           <li><strong>A few values attached to those.</strong> The length of your streak, whether you levelled up, which of the three fixed swap reasons you tapped, whether a subscription is monthly or yearly and whether it started with a trial. None of it is free text.</li>
           <li><strong>The device.</strong> Model, manufacturer, iOS version, and whether it is a simulator. No advertising identifier; not the name you gave your phone.</li>
           <li><strong>An identifier.</strong> A random one the app generates on first launch and stores locally. Once you sign in, events carry your account identifier instead, and your email address is attached to that profile so a support message can be matched to what we see.</li>
@@ -124,6 +125,7 @@
           <li><strong>Your IP address</strong>, at the moment events are sent. PostHog derives an approximate country and region from it.</li>
         </ul>
         <p>What an event never carries: the text of your goal, the text of any step, the sentence you wrote on the vision screen, your check-in notes, your name, or anything else you typed. An event says a step was completed. It does not say which step, or what it said.</p>
+        <p><strong>The one screen we do not record.</strong> The app checks what you type, on the device, for signs of an acute crisis; if it finds them it stops and shows a screen with helplines on it instead of a path (<a href="/support">more on Support</a>). That screen is excluded from the analytics by name. Every other screen address says only which part of the app was open; that one would say something about you, and it is not a thing we want in a database, tied to an account, whatever the funnel would have shown. You can reach it without us ever learning that you did.</p>
 
         <h3>The processors involved</h3>
         <ul>
