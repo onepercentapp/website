@@ -41,6 +41,18 @@
   --grid-line: rgba(17, 17, 17, 0.045);
   --glow: rgba(17, 17, 17, 0.055);
 
+  /* Grain, and the two values are further apart than they look like they should
+     be. feTurbulence writes noise into the alpha channel as well as the colour
+     channels, so the layer is part transparent: over near-black it both lightens
+     and darkens and reads immediately, while over a near-white canvas it can
+     only darken and needs roughly half again as much to land at the same
+     measured spread. Both are tuned to about 3 levels of standard deviation in a
+     flat area, which is where grain is felt rather than seen.
+
+     The cost on the light side is that the canvas sits about 1.5% darker than
+     --canvas says. That is the trade for grain that is actually there. */
+  --grain: 0.24;
+
   /* Type scale — sizes are the app's, verbatim */
   --display-size: 32px;
   --display-line: 38px;
@@ -101,6 +113,7 @@
        separating the screenshot from the canvas here. */
     --grid-line: rgba(244, 244, 244, 0.055);
     --glow: rgba(244, 244, 244, 0.075);
+    --grain: 0.15;
   }
 }
 
@@ -201,6 +214,38 @@ body::before {
     color-mix(in srgb, var(--canvas-lift) 56.25%, var(--canvas)) 75%,
     var(--canvas-lift) 100%
   );
+}
+
+/* Film grain over the ramp.
+
+   Generated rather than downloaded: an inline SVG filter in a data URI, so the
+   page keeps its one promise about network — every byte it needs comes from this
+   origin, and there is no image request for a texture.
+
+   `fractalNoise` rather than the default `turbulence`, which produces the
+   veined, marbled pattern people recognise as a Photoshop filter. Fractal noise
+   is flat and even, which is what film grain looks like. It is desaturated on
+   the way out; left in colour the noise tints the whole page a faint green at
+   any opacity strong enough to notice.
+
+   `stitchTiles="stitch"` is what makes the 200px tile seamless. Without it every
+   repeat has a visible edge and the page reads as a wallpaper.
+
+   The tile is deliberately small. A texture drawn once at viewport size gets
+   resampled on every resize and on every device pixel ratio, and grain that
+   resamples stops being grain — it turns into blur.
+
+   Sits above the ramp and under the content: both are `z-index: -1` on the same
+   parent, and ::after paints after ::before. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: var(--grain);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
 }
 
 body {
@@ -1296,6 +1341,12 @@ code {
   .site-footer,
   .skip,
   .about-grid-holder {
+    display: none;
+  }
+
+  /* Paper has its own grain, and a printer would render this one as a grey wash
+     over every page of the privacy policy. */
+  body::after {
     display: none;
   }
 
