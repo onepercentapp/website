@@ -117,14 +117,20 @@
       </nav>
     </div>
 
-    <!-- One screenshot, not three. The row of three was a glance at the app;
-         one at this size is the app itself, which is what a first screen is for.
+    <!-- The device render rather than the App Store screenshot.
+
+         The store asset is a composed marketing image: it carries its own black
+         card behind the phone and its own caption baked into the top of it. Both
+         were things this page then had to work around — the caption was cropped
+         off in CSS and the card sat on the canvas as a visible rectangle. This
+         one is the phone on transparency, so the backdrop runs behind it and the
+         shadow is cast by the phone rather than by a box.
+
          Eager and high priority: it is the only image above the fold and the
          page is otherwise text. -->
     <div class="landing-art">
-      <img src="screenshot-1.png" width="1320" height="2868" fetchpriority="high"
-           alt="The Today screen: “Good afternoon, Luis” above the goal “be more present”, then one card marked 5 min — sit or lie with eyes closed and count five full breaths, note which felt longest — with the line “Counting anchors attention to your breath rhythm” under it. Below the card: hold to complete, pull down to swap, and a row of seven dots for the week.">
-    </div>
+      <img src="hero-device.png" width="851" height="1849" fetchpriority="high"
+           alt="An iPhone showing the Today screen: “Good afternoon, Luis” above the goal “be more present”, then one card marked 5 min — sit or lie with eyes closed and count five full breaths, note which felt longest — with the line “Counting anchors attention to your breath rhythm” under it. Below the card: hold to complete, pull down to swap, and a row of seven dots for the week."></div>
 
   </section>
 

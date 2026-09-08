@@ -619,34 +619,24 @@ main {
   justify-content: center;
 }
 
-/* Cropped to the phone, in CSS rather than in a second file.
+/* The device render is a phone on transparency, so it needs none of what the
+   App Store screenshot needed: no crop, because there is no caption baked into
+   it; no radius, because a radius would cut the corners off the frame itself;
+   and no box-shadow, because a box-shadow is cast by the element's box and would
+   hang a rectangle behind a picture that is not one.
 
-   screenshot-1.png is the App Store asset, so it carries its own marketing
-   caption — "One small step. Every day." — baked into the top 677 of its 2868
-   pixels. Beside a headline reading "One goal. One step. Every day." that is the
-   same sentence twice, and it reads as a mistake rather than as an echo. The
-   same file is still used whole on /about, where the caption belongs.
-
-   The ratio is the image minus that band, and `object-position: bottom` is what
-   drops it: with `cover`, a box shorter than the source slides over it, and
-   pinning the bottom puts the cut exactly at the top. */
+   drop-shadow() follows the alpha channel instead, so the shadow is the phone's.
+   Two of them, the same pair a box-shadow would have used: a tight one for
+   contact and a wide soft one for the lift off the backdrop. */
 .landing-art img {
   display: block;
   width: auto;
   height: auto;
   max-width: 100%;
-  max-height: min(74svh, 760px);
-  aspect-ratio: 1320 / 2191;
-  object-fit: cover;
-  object-position: 50% 100%;
-  border-radius: var(--r-card);
-  /* A cast shadow rather than a border. The screenshot carries its own dark
-     background, so a line around it would only outline a rectangle that is
-     already there — but a shadow puts it in front of the backdrop instead of
-     printed on it, which is the whole job of the glow behind it. */
-  box-shadow:
-    0 2px 8px rgba(0, 0, 0, 0.10),
-    0 24px 70px -20px rgba(0, 0, 0, 0.45);
+  max-height: min(78svh, 800px);
+  filter:
+    drop-shadow(0 2px 6px rgba(0, 0, 0, 0.22))
+    drop-shadow(0 28px 50px rgba(0, 0, 0, 0.42));
 }
 
 /* One column below the fold's worth of width. The screenshot goes under the
