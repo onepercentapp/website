@@ -2,24 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://onepercentapp.xyz/</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-09-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://onepercentapp.xyz//privacy</loc>
+    <loc>https://onepercentapp.xyz/about</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://onepercentapp.xyz/privacy</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://onepercentapp.xyz//terms</loc>
+    <loc>https://onepercentapp.xyz/terms</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://onepercentapp.xyz//support</loc>
+    <loc>https://onepercentapp.xyz/support</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -31,7 +37,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://onepercentapp.xyz//imprint</loc>
+    <loc>https://onepercentapp.xyz/imprint</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
