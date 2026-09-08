@@ -642,34 +642,98 @@ main {
 /* One column below the fold's worth of width. The screenshot goes under the
    copy rather than above it: the headline and the badge are what the page is
    for, and on a phone the image would otherwise push both off the screen. */
+/* One column, and centred rather than left-aligned.
+
+   The first version was the desktop composition in a narrow window: a left rail
+   of text with the whole right half of every line empty, a nav that wrapped and
+   left IMPRINT alone on its own row, and the phone starting below the fold. On a
+   phone the axis of the page is the middle of it, so the copy sits on that axis
+   and the device hangs off the bottom edge — visible enough to say there is more,
+   cut enough that nobody mistakes it for the end. */
 @media (max-width: 820px) {
   /* minmax(0, 1fr) rather than the `1fr` shorthand, matching the two-column
      rule above. `1fr` is minmax(auto, 1fr), whose floor is the track's
      min-content width — and this track holds an image with an intrinsic width of
-     1320px. It does not overflow today, because max-width caps the image before
+     851px. It does not overflow today, because max-width caps the image before
      the floor is reached, but the guard costs nothing and the alternative is
      finding out on a phone. */
   .landing {
     grid-template-columns: minmax(0, 1fr);
-    gap: 40px;
-    min-height: 0;
-    padding-block: 40px 48px;
+    align-content: center;
+    gap: 32px;
+    min-height: 100svh;
+    /* No bottom padding: the device is meant to meet the edge of the screen. */
+    padding-block: 40px 0;
+    text-align: center;
   }
 
+  /* A flex column rather than the block it is on a desktop, so the badge and the
+     mark centre on the same axis as the text. text-align alone would leave both
+     of them sitting at the left, since neither is an inline box. */
+  .landing-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Bigger than the desktop clamp would give at this width. 6.4vw of a phone is
+     25px, so the headline fell back to its 44px floor and read as body copy that
+     had been bolded — the one element on the screen that has to carry. */
+  .landing-display {
+    font-size: clamp(40px, 12vw, 60px);
+  }
+
+  /* A centred paragraph is read by its ragged edges, and this one is four lines
+     of them at any width a phone has. `balance` is the fix rather than a
+     narrower cap: it evens the line lengths instead of trading one bad rag for a
+     taller one. Browsers without it fall back to the ordinary greedy wrap, which
+     is what this looked like before. */
   .landing-sub {
-    max-width: 46ch;
+    max-width: 32ch;
+    margin-top: 20px;
+    text-wrap: balance;
+  }
+
+  .landing-cta {
+    margin-top: 28px;
+  }
+
+  /* The five links are 353px at the desktop size and a 390pt phone has 342px, so
+     they wrapped and left IMPRINT alone at the end of a left-aligned row. A size
+     down and a tighter gap fit them on one line there.
+
+     At 360pt they still wrap, and that is where it is left: the row is centred
+     now, so the wrap reads as two centred rows rather than as an orphan, and
+     buying the last 20pt would mean 11px links — under the size a link should
+     be, for a cosmetic gain on the narrowest screen in the range. */
+  .landing-nav ul {
+    justify-content: center;
+    gap: 10px 14px;
+    margin-top: 28px;
+  }
+
+  .landing-nav a {
+    font-size: 12px;
+    letter-spacing: 0.05em;
+  }
+
+  /* Pulled into the page's bottom padding so the device meets the edge of the
+     screen rather than stopping a gutter short of it. */
+  .landing-art {
+    margin-bottom: calc(var(--gap-page) * -1);
   }
 
   .landing-art img {
-    max-height: 62svh;
+    max-height: none;
+    width: min(78%, 320px);
   }
 
   /* One column, so the bloom belongs under the middle of it rather than under a
      right-hand column that no longer exists. */
   .backdrop-glow {
     left: 50%;
-    top: 62%;
-    width: 120vw;
+    top: 58%;
+    width: 130vw;
   }
 
   .backdrop-grid {
