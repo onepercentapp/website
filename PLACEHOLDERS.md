@@ -22,7 +22,7 @@ grep -rn '{{' .
 | Last updated | 2026-08-12 |
 | Copyright year | 2026 |
 | Price | €4.99 per month, €29.99 per year |
-| Trial | 3 days |
+| Trial | 7 days, yearly plan only — the monthly plan has no introductory offer |
 | Screenshots | `screenshot-1.png`, `screenshot-2.png`, `screenshot-3.png`, live on the front page |
 
 ## Removed rather than filled
