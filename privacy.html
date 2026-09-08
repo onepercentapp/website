@@ -49,14 +49,14 @@
     <div class="page-head">
       <p class="eyebrow">Privacy</p>
       <h1 class="display">Privacy policy</h1>
-      <p class="updated">Last updated 2026-08-12</p>
+      <p class="updated">Last updated 2026-09-08</p>
     </div>
 
     <div class="prose">
 
       <section>
         <h2>The short version</h2>
-        <p class="lede">Your goal and your progress live on your phone. Two things send data off it, and a third only if you switch it on. First, when you ask 1% for a path, the text of your goal goes to our backend and on to OpenAI's API, which writes the steps. Second, your goal and your progress are copied to our backend as a backup, so a new phone can get them back. Those two need an account: <strong>generating a path requires you to be signed in</strong>, because the backend has nothing to rate-limit or attach a path to otherwise. Third, the app reports which of its features get used and what crashed, so we can fix it — never the text of your goal, your steps or anything else you wrote. In the EEA and the UK that one waits until you agree; the app asks once, at the start of setup. Everywhere it can be switched off in Settings. Everything else — your daily step, your streak, the whole app — runs on your phone with no connection. There is no advertising, no ad identifier and no cookies.</p>
+        <p class="lede">Your goal and your progress live on your phone. Two things send data off it, and a third only if you switch it on. First, when you ask 1% for a path, the text of your goal goes to our backend and on to OpenAI's API, which writes the steps — and the app asks your permission before the first time that happens, naming OpenAI and what is sent, with a switch in Settings to take it back. Second, your goal and your progress are copied to our backend as a backup, so a new phone can get them back. Those two need an account: <strong>generating a path requires you to be signed in</strong>, because the backend has nothing to rate-limit or attach a path to otherwise. Third, the app reports which of its features get used and what crashed, so we can fix it — never the text of your goal, your steps or anything else you wrote. In the EEA and the UK that one waits until you agree; the app asks once, at the start of setup. Everywhere it can be switched off in Settings. Everything else — your daily step, your streak, the whole app — runs on your phone with no connection. There is no advertising, no ad identifier and no cookies.</p>
       </section>
 
       <section>
@@ -87,6 +87,8 @@
 
         <h3>Generating a path</h3>
         <p>You type a goal. The app sends that text over an encrypted connection (HTTPS) to our backend, which runs as Supabase Edge Functions hosted in the EU. The backend passes the text to OpenAI's API, which writes the steps. The steps come back the same way and are stored on your device.</p>
+        <p><strong>Nothing is sent until you agree to it.</strong> The first time you finish typing a goal, before any request leaves the phone, the app shows a sheet headed "Before we write your path" whose first line reads: your steps are written by OpenAI. It names what goes — the goal text and your answers to the setup questions — and what does not: not your name, not your progress, nothing about your phone. Two buttons, equally weighted. Tap "Not now" and no request is made; you are returned to the goal field with what you typed still in it.</p>
+        <p>You can take that permission back at any time under <strong>Settings, Privacy &amp; Legal, "Writing with AI"</strong>. Switching it off stops every transfer, including the automatic one that tops up a path when it runs low, and no new goal can be written while it is off. What has already been written stays on your phone and keeps working. Switching it back on is the same one tap and shows the same disclosure again.</p>
         <p>You have to be signed in for this. The backend refuses a request without an account, because an account is what the daily limit and the path both hang on. Without a connection, or without an account, there is no way to generate a path.</p>
         <p>Two records are kept on our side after the steps come back:</p>
         <ul>
@@ -105,7 +107,7 @@
           <li>Which steps you swapped away, when, and the reason you picked for the swap.</li>
           <li>The order the steps of your path were shuffled into, so a new phone deals them the same way.</li>
           <li>Your reminder time, your locale, your theme, and the first name you gave during setup.</li>
-          <li>The answers you gave during setup that shaped the path: how much time a day you said was realistic, the anchor you chose, and the sentence you wrote on the vision screen, in your words.</li>
+          <li>The answers you gave during setup that shaped the path: how much time a day you said was realistic, the anchor you chose, and the commitment sentence — which is written for you by the model while your path is being generated, not typed by you.</li>
         </ul>
         <p>Row-level security in the database means a signed-in account can read and write only its own rows. Deleting your account deletes this copy — see below.</p>
 
@@ -128,9 +130,15 @@
           <li><strong>Errors.</strong> When the app throws something it does not handle, the type of the error, its message and the stack trace are reported.</li>
           <li><strong>Your IP address</strong>, at the moment events are sent. PostHog derives an approximate country and region from it.</li>
         </ul>
-        <p>What an event never carries: the text of your goal, the text of any step, the sentence you wrote on the vision screen, your check-in notes, your name, or anything else you typed. An event says a step was completed. It does not say which step, or what it said.</p>
+        <p>What an event never carries: the text of your goal, the text of any step, your commitment sentence, your check-in notes, your name, or anything else you typed. An event says a step was completed. It does not say which step, or what it said.</p>
         <p><strong>A recording of the screen, with the words taken out.</strong> Alongside those events, the app records what its own screens looked like while you used them, so that a step nobody can find or a button that does nothing is something we can watch rather than guess at. Every piece of text is masked before the picture leaves your phone — your goal, your steps, your check-ins, your name, everything — and so is every image. What remains is the shape of the screen and where you tapped. Nothing is recorded through the camera or the microphone, and nothing outside this app is ever in the picture. Switching the analytics off in Settings switches this off with them.</p>
         <p><strong>The one screen we do not record.</strong> The app checks what you type, on the device, for signs of an acute crisis; if it finds them it stops and shows a screen with helplines on it instead of a path (<a href="/support">more on Support</a>). That screen is excluded from the analytics by name, and the screen recording stops for as long as it is open — masked or not, a recording that contained it would say the same thing about you that the event would. Every other screen address says only which part of the app was open; that one would say something about you, and it is not a thing we want in a database, tied to an account, whatever the funnel would have shown. You can reach it without us ever learning that you did.</p>
+
+        <h3>Where the install came from</h3>
+        <p>If we are running an ad in the App Store, we want to know whether the people who arrive through it get anything out of the app. Apple has a way of answering that without tracking anyone, and this is it.</p>
+        <p>On first launch the app asks iOS for an attribution token and posts it to Apple's attribution endpoint (<code>api-adservices.apple.com</code>). Apple answers with the campaign, ad group and keyword behind the install, or says there was none. Those numbers are attached to the analytics profile described above, so that a funnel can be read per campaign.</p>
+        <p>Three things this is not. It is not the advertising identifier, and there is none in the app. It is not App Tracking Transparency — the app never asks to track you, because Apple's attribution works without it and nothing here follows you into another app. And it is not a profile of you: the token describes the install, it carries nothing you typed, and it is asked for exactly once and never again.</p>
+        <p>It rides on the same consent as everything else in this section. With the analytics off, the token is never read and nothing is sent to Apple.</p>
 
         <h3>The processors involved</h3>
         <ul>
@@ -138,6 +146,7 @@
           <li><strong>OpenAI</strong> — the API that generates the step text.</li>
           <li><strong>Resend</strong> — delivers the sign-in codes, if you use an email address rather than Apple. It handles your address and the message; it never sees your goal or your progress.</li>
           <li><strong>PostHog</strong> — the product analytics and crash reporting described above, on their EU cloud. It never sees your goal text, your steps or your backup.</li>
+          <li><strong>Apple</strong> — the App Store attribution described above, and only where we are advertising. It answers which ad produced an install; it is not sent anything you wrote.</li>
         </ul>
         <p>Please do not put names, addresses or other sensitive personal details into your goal text. It does not make the steps better, and it is the field that goes furthest — through our backend to OpenAI, into the request log, and possibly into the shared cache described above, where it is no longer tied to you but can be served to someone else who types the same goal.</p>
       </section>
