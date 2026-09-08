@@ -41,6 +41,10 @@
   --grid-line: rgba(17, 17, 17, 0.045);
   --glow: rgba(17, 17, 17, 0.055);
 
+  /* Paper strength. Overlay is mean-preserving, so this is a contrast knob
+     rather than a brightness one — it cannot lift the canvas at any value. */
+  --paper: 0.09;
+
   /* Type scale — sizes are the app's, verbatim */
   --display-size: 32px;
   --display-line: 38px;
@@ -101,6 +105,8 @@
        separating the screenshot from the canvas here. */
     --grid-line: rgba(244, 244, 244, 0.055);
     --glow: rgba(244, 244, 244, 0.075);
+    --paper: 0.8;
+    --paper-blend: overlay;
   }
 }
 
@@ -201,6 +207,50 @@ body::before {
     color-mix(in srgb, var(--canvas-lift) 56.25%, var(--canvas)) 75%,
     var(--canvas-lift) 100%
   );
+}
+
+/* Paper: a fibre texture over the canvas ramp.
+
+   Generated rather than downloaded — an inline SVG filter in a data URI — so the
+   page keeps its one promise about the network and a texture costs no request.
+
+   `mix-blend-mode: overlay` is the whole reason this does not wash the dark
+   canvas out, and it is worth writing down. Overlay leaves mid-grey untouched:
+   whatever the ground is, a blend value of exactly 0.5 returns the ground. So a
+   noise field centred on mid-grey adds local variation in both directions and
+   leaves the average brightness where it was. Painting the same noise with
+   ordinary alpha cannot do that — grey over near-black can only lighten, and the
+   black level rises with every bit of texture you add.
+
+   Which is why the filter ends by forcing alpha to 1 and squeezing the noise
+   into a band around 0.5. feTurbulence writes noise into the alpha channel too,
+   and a part-transparent layer is exactly the thing that would put the mean back
+   on the move.
+
+   `fractalNoise` rather than the default `turbulence`, which produces the
+   veined, marbled pattern people read as a filter someone applied. Three octaves
+   at a low frequency gives the soft, uneven grain of a sheet of paper; more
+   octaves and a higher frequency give film grain, which is a different thing.
+
+   `color-interpolation-filters='sRGB'` is not optional here, and it is the line
+   that took the longest to find. SVG filters run in linearRGB by default, so a
+   value of 0.5 written in the transfer function comes back out as about 0.74 in
+   sRGB — well above overlay's neutral point, and the canvas lifted by seven
+   levels with the blend mode doing exactly what it promises. The noise has to be
+   centred on mid-grey in the same space the browser blends in.
+
+   Small tile on purpose: a texture drawn once at viewport size is resampled on
+   every resize and at every device pixel ratio, and resampled grain is blur. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  mix-blend-mode: var(--paper-blend);
+  opacity: var(--paper);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='p' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='0.95' intercept='0.025'/%3E%3CfeFuncG type='linear' slope='0.95' intercept='0.025'/%3E%3CfeFuncB type='linear' slope='0.95' intercept='0.025'/%3E%3CfeFuncA type='linear' slope='0' intercept='1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
 }
 
 body {
@@ -1296,6 +1346,12 @@ code {
   .site-footer,
   .skip,
   .about-grid-holder {
+    display: none;
+  }
+
+  /* Paper already has its own texture, and a printer would render this one as a
+     grey wash over every page of the privacy policy. */
+  body::after {
     display: none;
   }
 
