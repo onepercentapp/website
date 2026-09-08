@@ -11,15 +11,22 @@
 :root {
   color-scheme: light dark;
 
-  /* Surfaces + ink — light */
-  --canvas: #F5F5F4;
+  /* Surfaces + ink — light.
+     --canvas is the value the app actually ships (theme-colors.ts), not the
+     #F5F5F4 in the design doc's table: the gradient below is mixed from it, and
+     a base that disagrees with the app by two levels puts a seam under every
+     screenshot. */
+  --canvas: #f7f7f7;
   --surface: #FFFFFF;
   --surface-2: #EEEEEC;
   --ink: #111111;
 
-  /* App token is #8A8A8E. On --canvas (#F5F5F4) that measures 3.15:1, which
-     fails WCAG AA for body text. Darkened to #6E6E73 (4.65:1 on --canvas,
-     5.07:1 on --surface). Same hue family, same role, readable. */
+  /* Bottom stop of the canvas ramp. See the gradient block below. */
+  --canvas-lift: #ffffff;
+
+  /* App token is #8A8A8E. On --canvas that measures about 3.2:1, which fails
+     WCAG AA for body text. Darkened to #6E6E73 (4.7:1 on --canvas, 5.07:1 on
+     --surface). Same hue family, same role, readable. */
   --ink-secondary: #6E6E73;
 
   --ink-faint: #C6C6C8;
@@ -45,14 +52,28 @@
   --hero-size: clamp(48px, 4.5vw + 30px, 56px);
   --hero-line: 1.08;
 
-  /* Radii */
+  /* Radii — the app's scale verbatim: cards and sheets 24, small tiles 16,
+     chips 10, buttons and inputs a full pill. The card value used to be 16,
+     which is the app's *tile* radius; at card size that reads as a web panel
+     rather than as one of the app's cards, and it is the single tell that gave
+     the page away next to a screenshot of the real thing. */
   --r-chip: 10px;
-  --r-card: 16px;
+  --r-card: 24px;
   --r-pill: 999px;
 
   /* Rhythm */
   --gap-page: 24px;
   --gap-section: 56px;
+
+  /* The dot grid's timeline, in the app's numbers (step-grid.tsx).
+
+     Two knobs, as it says over there: --dot-stagger is the pace of the fill and
+     --dot-cycle the pace of everything after it. The rest is read off those two,
+     so the grid here and the grid on the welcome screen keep the same gait. */
+  --dot-stagger: 24ms;
+  --dot-appear: 240ms;
+  --dot-fill: 1080ms; /* 35 dots x stagger + appear */
+  --dot-cycle: 4400ms; /* 1800 hold + 400 ripple, twice */
 
   --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI",
     system-ui, sans-serif;
@@ -61,6 +82,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --canvas: #080808;
+    --canvas-lift: #202020;
     --surface: #1a1a1a;
     --surface-2: #2c2c2c;
     --ink: #F4F4F4;
@@ -134,6 +156,44 @@ button {
 /* --------------------------------------------------------------------------
    3. Base
    -------------------------------------------------------------------------- */
+
+/* The app's canvas ramp.
+
+   Every screen in the app is painted on it: flat canvas at the top, lifting
+   toward the bottom. It is the app's one material, and the page had none of it.
+
+   Two things are copied rather than approximated. The five stops, because the
+   app samples five and not two — on a near-black canvas a straight two-stop ramp
+   bands, and twenty-odd levels over a screen height gives each band an edge you
+   can see. And the t² curve those stops sit on, which is what holds the top of
+   the ramp at the flat canvas, where headings sit, and spends the lightening low
+   where it reads as depth instead of as a second colour. The percentages below
+   are the app's offsets; the colours are canvasGradientAt() evaluated at each
+   one, so this is the same ramp arithmetic, resolved.
+
+   Fixed to the viewport rather than painted down the document, and that is the
+   faithful translation rather than a shortcut. In the app the ramp is one screen
+   tall and every screen carries an identical copy; stretched over a page that
+   scrolls for ten thousand pixels it would flatten into nothing. A fixed layer
+   gives every screenful the same top-flat, bottom-lit ramp the app has.
+
+   A pseudo-element rather than `background-attachment: fixed`, which iOS Safari
+   has ignored for years — the one platform whose users are the app's users. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    var(--canvas) 0%,
+    color-mix(in srgb, var(--canvas-lift) 6.25%, var(--canvas)) 25%,
+    color-mix(in srgb, var(--canvas-lift) 25%, var(--canvas)) 50%,
+    color-mix(in srgb, var(--canvas-lift) 56.25%, var(--canvas)) 75%,
+    var(--canvas-lift) 100%
+  );
+}
 
 body {
   background: var(--canvas);
@@ -403,10 +463,19 @@ main {
   align-items: start;
 }
 
+/* The app's card radius, on the shots themselves.
+
+   The note above says these get nothing drawn around them, and that still holds
+   for borders and shadows: the images carry their own near-black background, and
+   a line around one would only outline a black rectangle. A radius is the
+   exception, because it does not draw anything — it takes the corners off the
+   rectangle that is already there, and three rounded tiles on the canvas is the
+   app's own card shape rather than a frame added on top of it. */
 .shots img {
   display: block;
   width: 100%;
   height: auto;
+  border-radius: var(--r-card);
 }
 
 /* --------------------------------------------------------------------------
@@ -420,13 +489,45 @@ main {
   width: max-content;
 }
 
+/* Two animations, one after the other: the grid lands, then it loops.
+
+   The fill is ordered by `--i`, which is a rank rather than the index — the dots
+   open outward from the top-left corner rather than filling row by row. Read
+   left to right it was a progress bar in five passes, and a progress bar is the
+   one thing this page argues against.
+
+   The loop is the welcome screen's: the grid becomes a 1, holds, becomes a grid
+   again. `--d` is each dot's distance from the today dot in the bottom-right
+   corner, in milliseconds, so the change travels out of that corner instead of
+   switching everywhere at once. The dot that has been breathing on its own is
+   the one that sets the rest going, which is the whole reason the grid is worth
+   animating twice: the fill says a day at a time, the loop says what the days
+   come to.
+
+   `both` on the fill so a dot that has landed holds its end state until the loop
+   picks it up — without it every dot flashes back to nothing in the gap between
+   the two. */
 .dot {
   width: 18px;
   height: 18px;
   border-radius: var(--r-pill);
   background: var(--ink);
-  animation: dot-in 320ms cubic-bezier(0.2, 0.7, 0.3, 1) backwards;
-  animation-delay: calc(var(--i, 0) * 50ms);
+  animation:
+    dot-in var(--dot-appear) cubic-bezier(0.2, 0.7, 0.3, 1) both,
+    dot-cycle var(--dot-cycle) ease-in-out infinite;
+  animation-delay:
+    calc(var(--i, 0) * var(--dot-stagger)),
+    calc(var(--dot-fill) + var(--d, 0ms));
+}
+
+/* The eight dots that make up the 1. They never fade; they breathe instead,
+   while the numeral is up.
+
+   Same animation list, one name swapped, so both halves keep the delays above
+   and the numeral cannot drift out of step with the dots dropping away around
+   it. */
+.dot--glyph {
+  animation-name: dot-in, dot-glyph-breathe;
 }
 
 /* Today: not done yet. Outline, holding at 0.4, breathing slowly. */
@@ -458,6 +559,51 @@ main {
   }
   to {
     opacity: 0.4;
+    transform: scale(1);
+  }
+}
+
+/* The loop, for the dots that are not part of the 1.
+
+   0.14 rather than 0 is the app's BACKGROUND_OPACITY: the days do not leave when
+   the numeral arrives, they step behind it. A grid that emptied would be a
+   different sentence — these are the same dots read two ways, not a picture
+   replaced by another one.
+
+   The percentages are the app's phases against a 4400ms cycle: hold as a grid
+   for 1800, ripple across for 400, hold as the 1 for 1800, ripple back. */
+@keyframes dot-cycle {
+  0%,
+  41% {
+    opacity: 1;
+  }
+  50%,
+  91% {
+    opacity: 0.14;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* The numeral's breath, on the same clock.
+
+   1.18 is the app's peak against its glyph share — eight dots swelling together
+   is a far bigger movement than one doing it, so the numeral takes a little over
+   half the breath the today dot takes. At full amplitude it wobbles. */
+@keyframes dot-glyph-breathe {
+  0%,
+  41% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1);
+  }
+  70% {
+    transform: scale(1.18);
+  }
+  91%,
+  100% {
     transform: scale(1);
   }
 }
@@ -511,9 +657,12 @@ main {
    9. Cards, chips, pills
    -------------------------------------------------------------------------- */
 
+/* No border, and that is the app's rule rather than a preference: separation
+   comes from the step in surface tone (canvas → surface), never from a line
+   drawn around the fill. The border was doing the same job twice, and the
+   second copy is what made a card look like a box instead of a surface. */
 .card {
   background: var(--surface);
-  border: 1px solid var(--hairline);
   border-radius: var(--r-card);
   padding: 24px;
 }
@@ -588,12 +737,23 @@ a.pill:hover {
    10. FAQ — <details>, no JavaScript
    -------------------------------------------------------------------------- */
 
+/* Rows inside one rounded surface, which is how every list in the app is built:
+   a card on the canvas, hairlines only between the rows and never around the
+   outside. It was a stack of full-bleed rules on the page background before —
+   correct for a document, and the one block on this page that had an obvious
+   counterpart in the app and did not look like it.
+
+   Nothing here is louder than what it replaced. A fill and a radius came in,
+   two outer rules went out. */
 .faq {
-  border-bottom: 1px solid var(--hairline);
+  background: var(--surface);
+  border-radius: var(--r-card);
   margin-top: 24px;
+  padding-inline: 20px;
+  overflow: hidden;
 }
 
-.faq details {
+.faq details + details {
   border-top: 1px solid var(--hairline);
 }
 
