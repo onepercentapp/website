@@ -36,6 +36,11 @@
   --hairline: rgba(17, 17, 17, 0.12);
   --hairline-strong: rgba(17, 17, 17, 0.20);
 
+  /* Landing backdrop. Far under the hairline weight on purpose: this is
+     atmosphere, and anything readable as a line competes with the headline. */
+  --grid-line: rgba(17, 17, 17, 0.045);
+  --glow: rgba(17, 17, 17, 0.055);
+
   /* Type scale — sizes are the app's, verbatim */
   --display-size: 32px;
   --display-line: 38px;
@@ -90,6 +95,12 @@
 
     --hairline: rgba(244, 244, 244, 0.14);
     --hairline-strong: rgba(244, 244, 244, 0.24);
+
+    /* Both go up in the dark: a light line on near-black at the same alpha as a
+       dark line on near-white is invisible, and the glow is the only thing
+       separating the screenshot from the canvas here. */
+    --grid-line: rgba(244, 244, 244, 0.055);
+    --glow: rgba(244, 244, 244, 0.075);
   }
 }
 
@@ -412,6 +423,102 @@ main {
 }
 
 /* --------------------------------------------------------------------------
+   6a. Landing backdrop — grid, glow, particles
+   -------------------------------------------------------------------------- */
+
+/* Fixed behind the page, like the canvas ramp in section 3 and for the same
+   reason: this is one screen's worth of atmosphere, and painting it down a
+   document that scrolls would stretch it into nothing.
+
+   Everything in here is decorative and inert. `aria-hidden` on the element,
+   `pointer-events: none` on the layer, and no element in it is ever the target
+   of anything. */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Two sets of hairlines, drawn as gradients rather than as a repeating image,
+   so the line stays exactly one device pixel at any zoom.
+
+   The mask is what keeps it from reading as graph paper: full strength in the
+   middle of the screen, gone by the edges, so the grid feels like something the
+   page is standing on rather than a texture tiled over it. Both mask properties
+   are written out — Safari still wants the prefix for radial masks. */
+.backdrop-grid {
+  position: absolute;
+  inset: -1px;
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 88px 88px;
+  -webkit-mask-image: radial-gradient(
+    ellipse 90% 70% at 50% 45%,
+    #000 0%,
+    rgba(0, 0, 0, 0.55) 45%,
+    transparent 78%
+  );
+  mask-image: radial-gradient(
+    ellipse 90% 70% at 50% 45%,
+    #000 0%,
+    rgba(0, 0, 0, 0.55) 45%,
+    transparent 78%
+  );
+}
+
+/* One soft bloom, sitting under the screenshot on a desktop.
+
+   No colour: this site has no accent, and inventing one for a glow would be
+   inventing a brand on the marketing page for an app that does not have it. A
+   light bloom on the canvas does the same work — it separates the phone from
+   the background and gives the right half of the screen a centre. */
+.backdrop-glow {
+  position: absolute;
+  top: 50%;
+  left: 72%;
+  width: min(70vw, 780px);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--glow) 0%, transparent 68%);
+}
+
+/* The scatter. Each span carries its own position, size, resting opacity, delay
+   and duration, so no two drift together — a field where everything breathes on
+   the same beat reads as a loading state.
+
+   Transform and opacity only, which are the two properties a browser can animate
+   off the main thread. Sixteen of them at that cost is nothing; sixteen animated
+   `top` values would be sixteen layouts a second. */
+.particle {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--s);
+  height: var(--s);
+  border-radius: 50%;
+  background: var(--ink);
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: particle-drift var(--t) var(--d) infinite ease-in-out;
+}
+
+@keyframes particle-drift {
+  0%,
+  100% {
+    opacity: calc(var(--o) * 0.35);
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    opacity: var(--o);
+    transform: translate3d(0, -14px, 0);
+  }
+}
+
+/* --------------------------------------------------------------------------
    6a. Landing
    -------------------------------------------------------------------------- */
 
@@ -429,13 +536,21 @@ main {
    device where the badge matters most. The header subtraction is nothing here
    because this page has no header — it is written out for the day one arrives.
 */
+/* Wider than every other page, and it has to be its own number.
+
+   .wrap is 44rem, which is a measure for reading — the privacy policy is the
+   page that width was chosen for. A two-column first screen at 44rem is two
+   narrow columns with the whole of a 27" display empty around them, which is
+   what it looked like. 76rem is wide enough that the columns breathe and still
+   short of edge-to-edge, which reads as a page with no layout at all. */
 .landing {
+  max-width: 76rem;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
   align-items: center;
-  gap: 64px;
-  min-height: min(100svh, 900px);
-  padding-block: 48px;
+  gap: clamp(40px, 6vw, 96px);
+  min-height: 100svh;
+  padding-block: clamp(32px, 6vh, 72px);
 }
 
 .landing-mark {
@@ -450,10 +565,10 @@ main {
    sections and a FAQ. Set in the same system stack as everything else — a
    webfont for one headline is a network request the whole page waits on. */
 .landing-display {
-  font-size: clamp(44px, 7.5vw, 84px);
-  line-height: 0.98;
+  font-size: clamp(44px, 6.4vw, 96px);
+  line-height: 0.95;
   font-weight: 700;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.035em;
   margin: 0;
 }
 
@@ -461,7 +576,7 @@ main {
   font-size: var(--body-size);
   line-height: var(--body-line);
   color: var(--ink-secondary);
-  max-width: 34ch;
+  max-width: 38ch;
   margin: 28px 0 0;
 }
 
@@ -504,24 +619,51 @@ main {
   justify-content: center;
 }
 
+/* Cropped to the phone, in CSS rather than in a second file.
+
+   screenshot-1.png is the App Store asset, so it carries its own marketing
+   caption — "One small step. Every day." — baked into the top 677 of its 2868
+   pixels. Beside a headline reading "One goal. One step. Every day." that is the
+   same sentence twice, and it reads as a mistake rather than as an echo. The
+   same file is still used whole on /about, where the caption belongs.
+
+   The ratio is the image minus that band, and `object-position: bottom` is what
+   drops it: with `cover`, a box shorter than the source slides over it, and
+   pinning the bottom puts the cut exactly at the top. */
 .landing-art img {
   display: block;
   width: auto;
   height: auto;
   max-width: 100%;
-  max-height: min(68svh, 660px);
+  max-height: min(74svh, 760px);
+  aspect-ratio: 1320 / 2191;
+  object-fit: cover;
+  object-position: 50% 100%;
   border-radius: var(--r-card);
+  /* A cast shadow rather than a border. The screenshot carries its own dark
+     background, so a line around it would only outline a rectangle that is
+     already there — but a shadow puts it in front of the backdrop instead of
+     printed on it, which is the whole job of the glow behind it. */
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.10),
+    0 24px 70px -20px rgba(0, 0, 0, 0.45);
 }
 
 /* One column below the fold's worth of width. The screenshot goes under the
    copy rather than above it: the headline and the badge are what the page is
    for, and on a phone the image would otherwise push both off the screen. */
 @media (max-width: 820px) {
+  /* minmax(0, 1fr) rather than the `1fr` shorthand, matching the two-column
+     rule above. `1fr` is minmax(auto, 1fr), whose floor is the track's
+     min-content width — and this track holds an image with an intrinsic width of
+     1320px. It does not overflow today, because max-width caps the image before
+     the floor is reached, but the guard costs nothing and the alternative is
+     finding out on a phone. */
   .landing {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 40px;
     min-height: 0;
-    padding-block: 40px 8px;
+    padding-block: 40px 48px;
   }
 
   .landing-sub {
@@ -531,15 +673,18 @@ main {
   .landing-art img {
     max-height: 62svh;
   }
-}
 
-/* No rule above the footer on the landing page: the nav links already close the
-   column, and a full-width line under a two-column first screen draws a floor
-   that the composition does not have. */
-.site-footer--landing {
-  border-top: 0;
-  margin-top: 0;
-  padding-block: 8px 40px;
+  /* One column, so the bloom belongs under the middle of it rather than under a
+     right-hand column that no longer exists. */
+  .backdrop-glow {
+    left: 50%;
+    top: 62%;
+    width: 120vw;
+  }
+
+  .backdrop-grid {
+    background-size: 64px 64px;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -1041,8 +1186,16 @@ code {
 
 @media (prefers-reduced-motion: reduce) {
   .dot,
-  .dot--open {
+  .dot--open,
+  .particle {
     animation: none;
+  }
+
+  /* Still there, still scattered, just not breathing. Hiding them would take
+     the depth out of the page for the people who asked for less motion, which
+     is not what they asked for. */
+  .particle {
+    opacity: var(--o);
   }
 
   .dot {
