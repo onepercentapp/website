@@ -98,9 +98,18 @@
            code, because apps.apple.com sends each visitor to their own
            storefront. 156 x 52 CSS px is the standard size for the 119.664 x 40
            pt master, and the dimensions are on the img so the space is reserved
-           before the SVG loads and nothing jumps. -->
+           before the SVG loads and nothing jumps.
+
+           An App Analytics campaign link rather than the bare store URL: pt is
+           the provider token from App Store Connect, ct names this source, and
+           mt=8 is the legacy media type Apple still emits. Without ct every
+           install from this page lands in the store's "Unknown" bucket, which
+           is where the whole point of having a landing page goes to hide. The
+           parameters are read by the App Store, not by this page — nothing is
+           set, stored or sent from here, and the link is the same for every
+           visitor. -->
       <div class="landing-cta">
-        <a href="https://apps.apple.com/app/id6795155258" class="badge-link">
+        <a href="https://apps.apple.com/app/apple-store/id6795155258?pt=129227368&amp;ct=landingpage&amp;mt=8" class="badge-link">
           <img src="app-store-badge.svg" width="156" height="52"
                alt="Download 1% on the App Store">
         </a>

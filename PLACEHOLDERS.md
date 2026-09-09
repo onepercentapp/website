@@ -51,12 +51,26 @@ fast route beside email, and that risk is no longer being carried.
 ## App Store badge
 
 Done. `/` shows Apple's official black badge, linking to
-`https://apps.apple.com/app/id6795155258`.
+`https://apps.apple.com/app/apple-store/id6795155258?pt=129227368&ct=landingpage&mt=8`.
 
 `6795155258` is the app's Apple ID from App Store Connect → App Information. It
 is not the bundle identifier (`com.onepercentapp.ios`), and the link needs the
 number. No country code in the URL: `apps.apple.com` routes each visitor to
 their own storefront on its own.
+
+The query is an App Analytics campaign link, generated in App Store Connect →
+App Analytics → Acquisition → Campaigns. `pt` is the provider token, one per
+developer account and the same in every campaign link. `ct` is the only part
+worth editing: it is the label the downloads are grouped under, up to 40
+characters, and `landingpage` is this page's. A link posted somewhere else
+should carry its own `ct` — copy this URL and change that one value, there is no
+need to create a second link in App Store Connect. `mt=8` is a legacy media type
+Apple still emits.
+
+Downloads show up under Acquisition → Campaigns a day or so later. Apple
+suppresses rows below a privacy threshold, so a handful of installs spread over
+many campaign names can report as nothing at all — few broad labels beat many
+narrow ones until there is volume.
 
 Two rules that came with the asset and still apply if it is ever touched:
 `app-store-badge.svg` is served from this folder and Apple's hosted copy is
