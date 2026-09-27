@@ -31,6 +31,32 @@
 <link rel="icon" type="image/x-icon" href="icon.png">
 
 <link rel="stylesheet" href="styles.css">
+
+<!--
+  Visitor tracking, landing page only.
+
+  This is the first third-party request the site makes, and the first script of
+  any kind on it. Everything else here — the badge SVG, the fonts, the paper
+  texture — is served from this origin or generated, and the comments elsewhere
+  in this file say so. They are now true of the rest of the site rather than of
+  all of it.
+
+  `async` so it never blocks the first paint: the page is the product and it
+  renders without this. No `defer`, because nothing on the page waits for it and
+  execution order does not matter with a single script.
+
+  Two things that are not settled here and are not settled by this tag:
+
+  1. Consent. § 25 TDDDG requires opt-in before anything is stored on or read
+     from the visitor's device, and it does not care whether that is a cookie or
+     localStorage. If this endpoint is genuinely cookieless and stores nothing,
+     the tag can stay as it is; if it sets an identifier of any kind, this page
+     needs a consent banner and the script must not load before a yes.
+  2. Disclosure. /privacy currently tells the reader this site collects nothing
+     and makes no third-party requests. That is now false and the page has to
+     say who this provider is, what is transmitted and on what legal basis.
+-->
+<script async src="https://aromatic-caribou-889.convex.site/api/a/am_cSxCeP23ac8h4c79"></script>
 </head>
 <body>
 
@@ -58,7 +84,7 @@
     repeat immediately.
   -->
   <div class="backdrop" aria-hidden="true">
-    <div class="backdrop-grid"></div>
+    <!-- <div class="backdrop-grid"></div> -->
     <div class="backdrop-glow"></div>
     <span class="particle" style="--x:8%;--y:18%;--s:2px;--o:.5;--d:0s;--t:9s"></span>
     <span class="particle" style="--x:16%;--y:64%;--s:1px;--o:.4;--d:1.4s;--t:11s"></span>
