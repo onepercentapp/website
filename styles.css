@@ -1,5 +1,5 @@
 /* ==========================================================================
-   1% — marketing site
+   ippo! — marketing site
    One stylesheet. No preprocessor, no framework, no reset library, no webfont.
    Tokens are taken from the app (tailwind.config.js / src/lib/theme-colors.ts).
    ========================================================================== */
@@ -40,6 +40,11 @@
      atmosphere, and anything readable as a line competes with the headline. */
   --grid-line: rgba(17, 17, 17, 0.045);
   --glow: rgba(17, 17, 17, 0.055);
+
+  /* The chrome spheres from the App Store screenshots: a lit top-left, a
+     falloff to graphite, and a contact shadow under each. */
+  --sphere: radial-gradient(circle at 34% 28%, #ffffff 0%, #ececec 16%, #b4b4b4 46%, #5c5c5c 80%, #3a3a3a 100%);
+  --sphere-shadow: 0 6px 12px rgba(0, 0, 0, 0.18);
 
   /* Paper strength. Overlay is mean-preserving, so this is a contrast knob
      rather than a brightness one — it cannot lift the canvas at any value. */
@@ -87,8 +92,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --canvas: #080808;
-    --canvas-lift: #202020;
+    --canvas: #000000;
+    --canvas-lift: #161616;
     --surface: #1a1a1a;
     --surface-2: #2c2c2c;
     --ink: #F4F4F4;
@@ -105,6 +110,7 @@
        separating the screenshot from the canvas here. */
     --grid-line: rgba(244, 244, 244, 0.055);
     --glow: rgba(244, 244, 244, 0.075);
+    --sphere-shadow: 0 8px 18px rgba(0, 0, 0, 0.6);
     --paper: 0.8;
     --paper-blend: overlay;
   }
@@ -399,6 +405,11 @@ body {
   padding: 4px 2px;
 }
 
+.wordmark b,
+.landing-mark b {
+  font-weight: 900;
+}
+
 .header-note {
   font-size: var(--label-size);
   line-height: var(--label-line);
@@ -473,7 +484,7 @@ main {
 }
 
 /* --------------------------------------------------------------------------
-   6a. Landing backdrop — grid, glow, particles
+   6a. Landing backdrop — grid, glow
    -------------------------------------------------------------------------- */
 
 /* Fixed behind the page, like the canvas ramp in section 3 and for the same
@@ -536,38 +547,6 @@ main {
   background: radial-gradient(circle, var(--glow) 0%, transparent 68%);
 }
 
-/* The scatter. Each span carries its own position, size, resting opacity, delay
-   and duration, so no two drift together — a field where everything breathes on
-   the same beat reads as a loading state.
-
-   Transform and opacity only, which are the two properties a browser can animate
-   off the main thread. Sixteen of them at that cost is nothing; sixteen animated
-   `top` values would be sixteen layouts a second. */
-.particle {
-  position: absolute;
-  left: var(--x);
-  top: var(--y);
-  width: var(--s);
-  height: var(--s);
-  border-radius: 50%;
-  background: var(--ink);
-  opacity: 0;
-  will-change: transform, opacity;
-  animation: particle-drift var(--t) var(--d) infinite ease-in-out;
-}
-
-@keyframes particle-drift {
-  0%,
-  100% {
-    opacity: calc(var(--o) * 0.35);
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    opacity: var(--o);
-    transform: translate3d(0, -14px, 0);
-  }
-}
-
 /* --------------------------------------------------------------------------
    6a. Landing
    -------------------------------------------------------------------------- */
@@ -604,10 +583,11 @@ main {
 }
 
 .landing-mark {
-  font-size: var(--title-size);
+  font-size: 28px;
+  line-height: 1;
   font-weight: 700;
-  letter-spacing: -0.5px;
-  margin: 0 0 28px;
+  letter-spacing: -0.04em;
+  margin: 0 0 32px;
 }
 
 /* Bigger than the old hero headline, and it has to be: this is now the only thing on the
@@ -616,10 +596,14 @@ main {
    webfont for one headline is a network request the whole page waits on. */
 .landing-display {
   font-size: clamp(44px, 6.4vw, 96px);
-  line-height: 0.95;
-  font-weight: 700;
-  letter-spacing: -0.035em;
+  line-height: 0.98;
+  font-weight: 500;
+  letter-spacing: -0.04em;
   margin: 0;
+}
+
+.landing-dim {
+  color: var(--ink-secondary);
 }
 
 .landing-sub {
@@ -665,8 +649,52 @@ main {
    width cap sets the height by accident and overflows a laptop in landscape —
    which is the shape most people see this page in. */
 .landing-art {
+  position: relative;
   display: flex;
   justify-content: center;
+}
+
+/* The phone sits over the spheres, as it does in the screenshots. */
+.landing-art img {
+  position: relative;
+  z-index: 1;
+}
+
+/* Four columns of days to the left of the phone, the last one today. The mask
+   fades them out toward the top-left so they read as the page's depth rather
+   than as a second picture next to the first. */
+.spheres {
+  --size: 44px;
+  --gap: 16px;
+  position: absolute;
+  bottom: 9%;
+  left: 50%;
+  transform: translateX(-166%);
+  display: grid;
+  grid-template-columns: repeat(4, var(--size));
+  gap: var(--gap);
+  -webkit-mask-image: linear-gradient(160deg, transparent 0%, #000 48%);
+  mask-image: linear-gradient(160deg, transparent 0%, #000 48%);
+}
+
+.sphere {
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  background: var(--sphere);
+  box-shadow: var(--sphere-shadow);
+  animation: dot-in var(--dot-appear) cubic-bezier(0.2, 0.7, 0.3, 1) both;
+  animation-delay: calc(var(--i, 0) * var(--dot-stagger));
+}
+
+/* Today: not done yet. An open ring, breathing, like the app's today dot. */
+.sphere--today {
+  background: none;
+  box-shadow: inset 0 0 0 2px var(--ink);
+  animation:
+    dot-open-in 320ms cubic-bezier(0.2, 0.7, 0.3, 1) backwards,
+    breathe 4.4s ease-in-out infinite;
+  animation-delay: calc(var(--i) * var(--dot-stagger)), calc(var(--i) * var(--dot-stagger) + 320ms);
 }
 
 /* The device render is a phone on transparency, so it needs none of what the
@@ -788,6 +816,13 @@ main {
 
   .backdrop-grid {
     background-size: 64px 64px;
+  }
+
+  .spheres {
+    --size: 30px;
+    --gap: 11px;
+    bottom: 12%;
+    transform: translateX(-168%);
   }
 }
 
@@ -1291,15 +1326,8 @@ code {
 @media (prefers-reduced-motion: reduce) {
   .dot,
   .dot--open,
-  .particle {
+  .sphere {
     animation: none;
-  }
-
-  /* Still there, still scattered, just not breathing. Hiding them would take
-     the depth out of the page for the people who asked for less motion, which
-     is not what they asked for. */
-  .particle {
-    opacity: var(--o);
   }
 
   .dot {
